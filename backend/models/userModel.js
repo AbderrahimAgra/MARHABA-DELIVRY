@@ -22,13 +22,19 @@ const userSchema = mongoose.Schema({
     required: true,
     trim: true
   },
+  phone: {
+    type: String,
+    required: true,
+    trim: true
+  },
   role: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role"
     }
   ],
-  verification: Boolean
+  verification: Boolean,
+  isBanned: Boolean
 })
 
 module.exports = mongoose.model('User', userSchema)
