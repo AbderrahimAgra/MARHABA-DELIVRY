@@ -11,10 +11,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 const userRouter = require('./routes/userRouter')
-// const roleRouter = require('./routes/roleRouter')
+const roleRouter = require('./routes/roleRouter')
 
 app.use('/api/auth', userRouter)
-// app.use('/api/user', roleRouter)
+app.use('/api/user', roleRouter)
 
 app.all('*', (req, res) => {
   res.send('Page Not Found')

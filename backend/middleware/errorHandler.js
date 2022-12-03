@@ -2,6 +2,6 @@ const errorHandler = (error, req, res, next) => {
   res.send(error.message)
 }
 
-module.exports = { 
+module.exports = {
   errorHandler
 }
