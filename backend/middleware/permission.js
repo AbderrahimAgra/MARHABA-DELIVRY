@@ -1,13 +1,11 @@
 const storage = require('local-storage')
 const jwt = require('jsonwebtoken')
-const User = require('../models/userModel')
-const role = require('../models/roleModel')
 
 const authParemission = async (req, res, next) => {
   const token = storage('token')
   if (token) {
     const token_user = await jwt.verify(token, process.env.SECRET)
-    if (token_user === token) res.send('You are already connected')
+    if (token_user) res.send('You are already connected')
     else next()
   }
   else next()
