@@ -9,7 +9,8 @@ const registerUser = async (req, res) => {
   const { first_name, last_name, phone, email, password, confirm_password } = req.body
 
   if (first_name === '' || last_name === '' || phone === '' || email === '' || password === '' || confirm_password === '') throw Error('Please fill all the fields')
-  // if (password !== confirm_password) throw Error('Password not matched')
+  if (password !== confirm_password) throw Error('Password not matched')
+
 
   const userExists = await User.findOne({ email })
   const phoneExists = await User.findOne({ phone })
@@ -52,6 +53,7 @@ const verifyEmail = async (req, res) => {
 
   const verification_email = await User.updateOne({ email: verify_email.email }, { $set: { verification: true } })
   if (verification_email) res.redirect('http://localhost:5173/login');
+  if (verifyUser && verifyUser.verification === true) throw Error('You Are Registed')
   if (!verification_email) throw Error("You can't to active your account")
 }
 
