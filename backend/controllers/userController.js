@@ -62,6 +62,7 @@ const loginUser = async (req, res) => {
 
   const user = await User.findOne({ email })
 
+  if(user.isBanned) throw Error ('Your Account is Banned')
   if (!user) throw Error('Email or password is incorrect')
   if (!user.verification) throw Error('Check Your Email To Active Your Account')
   const correctPassword = await bcrypt.compare(password, user.password)
