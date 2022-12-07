@@ -1,15 +1,14 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const storage = require('local-storage')
-const User = require('../models/userModel')
-const Role = require('../models/roleModel')
-const mainMail = require('../middleware/mailer')
+const User = require('../../models/userModel')
+const Role = require('../../models/roleModel')
+const mainMail = require('../../middleware/mailer')
 
 const registerUser = async (req, res) => {
   const { first_name, last_name, phone, email, password, confirm_password } = req.body
 
   if (first_name === '' || last_name === '' || phone === '' || email === '' || password === '' || confirm_password === '') throw Error('Please fill all the fields')
-  if (password !== confirm_password) throw Error('Password not matched')
 
 
   const userExists = await User.findOne({ email })
@@ -64,9 +63,9 @@ const loginUser = async (req, res) => {
 
   const user = await User.findOne({ email })
 
-  if(user.isBanned) throw Error ('Your Account is Banned')
   if (!user) throw Error('Email or password is incorrect')
   if (!user.verification) throw Error('Check Your Email To Active Your Account')
+  if (user.isBanned) throw Error('Your Account is Banned')
   const correctPassword = await bcrypt.compare(password, user.password)
   if (user && correctPassword) {
     const role = await Role.findById({ _id: user.role })
@@ -79,6 +78,7 @@ const loginUser = async (req, res) => {
       role: role.name,
       token: token
     })
+
   }
   else {
     throw Error('Invalid Creadtials')
@@ -119,11 +119,11 @@ const forgotPassword = async (req, res) => {
 const verifyForgotPassword = async (req, res) => {
   const token = req.params.token
   const verify_token = await jwt.verify(token, process.env.SECRET)
-  if(verify_token) {
+  if (verify_token) {
     const verify_token_email = await User.findOne({ email: verify_token.email })
     const new_token = await jwt.sign({ id: verify_token_email.id }, process.env.SECRET)
     res.json({ message: 'form-forgot-password', token: new_token })
-  }else  res.send('Token Not Found')
+  } else res.send('Token Not Found')
 }
 
 const formForgotPassword = async (req, res) => {

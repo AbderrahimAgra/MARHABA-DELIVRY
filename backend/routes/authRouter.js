@@ -8,7 +8,7 @@ const {
   verifyForgotPassword,
   formForgotPassword,
   logout
-} = require('../controllers/userController')
+} = require('../controllers/authController/authController')
 
 const { tryCatch } = require('../middleware/tryCatch')
 const { errorHandler } = require('../middleware/errorHandler')
