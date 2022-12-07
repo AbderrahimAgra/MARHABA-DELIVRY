@@ -11,7 +11,7 @@ db.address = require('./addressModel')
 db.order = require('./orderModel')
 db.status = require('./statusModel')
 
-db.repas = require('./repas')
+db.meal = require('./meal')
 db.category = require('./category')
 db.ordertime = require('./ordertime')
 
