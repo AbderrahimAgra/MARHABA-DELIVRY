@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 var storage = require('local-storage')
 const User = require('../../models/userModel')
 const Role = require('../../models/roleModel')
+const Category = require('../../models/category')
 const { role } = require('../../models')
 
 const managerUser = async (req, res) => {
@@ -19,7 +20,25 @@ const managerUser = async (req, res) => {
 }
 
 
+const addcategory = async (req, res) => {
+    const {body} = req 
+    const category = await Category.findOne(body.nam)
+    if(category) throw Error("the category deja already")
+}
+
+
+const findcategory = async (req, res) => {
+
+}
+
+const deletcategory = async (req, res) => {
+
+}
+
 
 module.exports = {
-  managerUser
+  managerUser,
+  addcategory,
+  findcategory,
+  deletcategory
 }
