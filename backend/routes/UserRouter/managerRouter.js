@@ -3,7 +3,9 @@ const {
   managerUser,
   addcategory,
   findcategory,
-  deletcategory
+  deletcategory,
+  updatecategory,
+  updateuser
 } = require('../../controllers/userController/managerController')
 
 // Error Handler
@@ -11,9 +13,12 @@ const { tryCatch } = require('../../middleware/tryCatch')
 const { errorHandler } = require('../../middleware/errorHandler')
 
 router.get('/manager/me', tryCatch(managerUser))
-router.post('/manager/category', tryCatch(addcategory))
+router.post('/manager/addcategory', tryCatch(addcategory))
 router.get('/manager/findcategory', tryCatch(findcategory))
-router.delete('/manager/me', tryCatch(deletcategory))
+router.delete('/manager/deletcategory/:id', tryCatch(deletcategory))
+router.put('/manager/updatecategory/:id', tryCatch(updatecategory))
+router.put('/manager/updateuser/:id', tryCatch(updateuser))
+
 
 router.use(errorHandler)
 
