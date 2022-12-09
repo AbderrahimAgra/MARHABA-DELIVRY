@@ -75,6 +75,7 @@ const updatecategory = async (req, res) => {
 const updateuser = async (req, res) => {
   const {id} = req.params
 
+
     const data =  await User.findOne({_id:id})
     if(data.isBanned==true){
       await User.findOneAndUpdate({_id:id},{isBanned: false})
@@ -112,6 +113,7 @@ const listlivreur = async (req, res) => {
   else{
     throw Error ('Not User to role client')
   }
+
 }
 
 
@@ -125,4 +127,5 @@ module.exports = {
   updateuser,
   listclient,
   listlivreur
+
 }
