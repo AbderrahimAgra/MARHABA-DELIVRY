@@ -5,6 +5,7 @@ const Role = require('../../models/roleModel')
 const Category = require('../../models/category')
 const { role } = require('../../models')
 
+
 const managerUser = async (req, res) => {
   const token = storage('token')
   const token_user = await jwt.verify(token, process.env.SECRET)
@@ -73,10 +74,45 @@ const updatecategory = async (req, res) => {
 }
 const updateuser = async (req, res) => {
   const {id} = req.params
-  
-    const data =  await User.findOneAndUpdate({_id:id},{isBanned: true})
-    if(!data) res.send('not')
-    res.send('updated')
+
+
+    const data =  await User.findOne({_id:id})
+    if(data.isBanned==true){
+      await User.findOneAndUpdate({_id:id},{isBanned: false})
+    }else{
+       await User.findOneAndUpdate({_id:id},{isBanned: true})
+    }
+    res.send(data)
+    
+
+}
+
+const listclient = async (req, res) => {
+
+    const id_role = '638f45b410a60d0c0019353a'
+    const findclient = await User.find({role: id_role})
+    if(findclient){
+      res.send(
+     findclient
+      )
+    }
+    else{
+      throw Error ('Not User to role client')
+    }
+}
+
+const listlivreur = async (req, res) => {
+
+  const id_role = '638f45b410a60d0c0019353b'
+  const findclient = await User.find({role: id_role})
+  if(findclient){
+    res.send(
+   findclient
+    )
+  }
+  else{
+    throw Error ('Not User to role client')
+  }
 
 }
 
@@ -88,5 +124,8 @@ module.exports = {
   findcategory,
   deletcategory,
   updatecategory,
-  updateuser
+  updateuser,
+  listclient,
+  listlivreur
+
 }
