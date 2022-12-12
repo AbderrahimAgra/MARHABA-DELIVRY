@@ -10,6 +10,10 @@ db.role = require("./roleModel")
 db.address = require('./addressModel')
 db.order = require('./orderModel')
 db.status = require('./statusModel')
+db.repas = require('./repas')
+db.category = require('./category')
+db.ordertime = require('./ordertime')
+
 
 db.role.estimatedDocumentCount((err, count) => {
   if (!err && count === 0) {
