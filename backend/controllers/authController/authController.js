@@ -9,6 +9,8 @@ const registerUser = async (req, res) => {
   const { first_name, last_name, phone, email, password, confirm_password } = req.body
 
   if (first_name === '' || last_name === '' || phone === '' || email === '' || password === '' || confirm_password === '') throw Error('Please fill all the fields')
+
+
   const userExists = await User.findOne({ email })
   const phoneExists = await User.findOne({ phone })
 
@@ -61,7 +63,6 @@ const loginUser = async (req, res) => {
 
   const user = await User.findOne({ email })
 
-  if(user.isBanned) throw Error ('Your Account is Banned')
   if (!user) throw Error('Email or password is incorrect')
   if (!user.verification) throw Error('Check Your Email To Active Your Account')
   if (user.isBanned) throw Error('Your Account is Banned')
@@ -123,6 +124,7 @@ const verifyForgotPassword = async (req, res) => {
     const new_token = await jwt.sign({ id: verify_token_email.id }, process.env.SECRET)
     // res.json({ message: 'form-forgot-password', token: new_token })
     res.redirect('http://localhost:3000/form-forgot-password/' + new_token);
+    res.json({ message: 'form-forgot-password', token: new_token })
   } else res.send('Token Not Found')
 }
 
