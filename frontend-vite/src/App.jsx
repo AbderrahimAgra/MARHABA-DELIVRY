@@ -5,6 +5,7 @@ import './App.css';
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import ForgotPassword from './pages/auth/ForgotPassword'
+import FormForgotPassword from './pages/auth/FormForgotPassword'
 // Pages Client
 import Dashboard from './components/layouts/Dashboard';
 import DashbordClient from './pages/user/client/dashboardClient'
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/form-forgot-password/:token' element={<FormForgotPassword />} />
         {/* { Client } */}
         <Route path='/dashboard/client' element={<Dashboard />}>
           <Route path='' element={<DashbordClient />} />

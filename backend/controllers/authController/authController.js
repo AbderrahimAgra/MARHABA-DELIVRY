@@ -123,8 +123,7 @@ const verifyForgotPassword = async (req, res) => {
     const verify_token_email = await User.findOne({ email: verify_token.email })
     const new_token = await jwt.sign({ id: verify_token_email.id }, process.env.SECRET)
     // res.json({ message: 'form-forgot-password', token: new_token })
-    res.redirect('http://localhost:3000/form-forgot-password/' + new_token);
-    res.json({ message: 'form-forgot-password', token: new_token })
+    res.redirect('http://localhost:5173/form-forgot-password/' + new_token);
   } else res.send('Token Not Found')
 }
 
