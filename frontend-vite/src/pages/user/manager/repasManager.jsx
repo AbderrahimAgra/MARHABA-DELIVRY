@@ -104,7 +104,7 @@ function repasManager() {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t ">
                   <h3 className="text-3xl font-semibold">
-                    Ajouter un nouveau Livreur
+                    Ajouter Livreur
                   </h3>
                   <button
                     className="p-1 bg-transparent border-0 text-gray-300 opacity-1 float-right text-3xl leading-none font-semibold outline-none focus:outline-none ml-8"
@@ -119,7 +119,6 @@ function repasManager() {
                 <div className="relative p-6 flex-auto">
                   <form
                     className="my-4 text-slate-500 text-lg leading-relaxed"
-                    onSubmit={handleSubmit}
                   >
                     <div className="flex flex-col">
                       <div>
@@ -130,8 +129,6 @@ function repasManager() {
                         </label>
                         <input
                           type="text"
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
                           name="prenom"
                           id="prenom"
                           placeholder="Inserer le prenom"
@@ -147,8 +144,6 @@ function repasManager() {
                         </label>
                         <input
                           type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
                           name="email"
                           id="email"
                           placeholder="Inserer l'email"
@@ -167,7 +162,7 @@ function repasManager() {
                       <button
                         className="bg-amber-500 text-white active:bg-amber-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                      // onClick={() => setShowModal(false)}
+                      onClick={() => setShowModal(false)}
                       >
                         Save Changes
                       </button>
