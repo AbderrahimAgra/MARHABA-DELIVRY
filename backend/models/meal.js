@@ -32,4 +32,4 @@ const repasSchema= mongoose.Schema({
       ]
 
 })
-module.exports = mongoose.model('repas', repasSchema)
+module.exports = mongoose.model('meal', repasSchema)
