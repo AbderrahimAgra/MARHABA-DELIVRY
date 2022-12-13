@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Input from "../../../components/Input";
-import Label from "../../../components/Label";
 import Button from "../../../components/Button";
 
 

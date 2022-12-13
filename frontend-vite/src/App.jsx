@@ -10,7 +10,9 @@ import FormForgotPassword from './pages/auth/FormForgotPassword'
 import Dashboard from './components/layouts/Dashboard';
 import DashbordClient from './pages/user/client/dashboardClient'
 import SettingClient from './pages/user/client/settingClient'
+// Pages Manager
 import DashbordManager from './pages/user/manager/dashboardManager'
+import RepasManager from './pages/user/manager/repasManager'
 // import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
 
 function App() {
@@ -22,7 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/form-forgot-password/:token' element={<FormForgotPassword />} />
+        <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
         {/* { Client } */}
         <Route path='/dashboard/client' element={<Dashboard />}>
           <Route path='' element={<DashbordClient />} />
@@ -31,6 +33,7 @@ function App() {
         {/* { Manager } */}
         <Route path='/dashboard/manager' element={<Dashboard />}>
           <Route path='' element={<DashbordManager/>} />
+          <Route path='repas' element={<RepasManager />} />
           {/* <Route path='setting' element={<SettingManager />} /> */}
         </Route>
       </Routes>

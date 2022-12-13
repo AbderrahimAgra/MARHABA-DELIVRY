@@ -1,23 +1,55 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom';
+import { AiOutlineDashboard, AiFillSetting, AiOutlineLogout } from 'react-icons/ai';
+import { GiMeal } from 'react-icons/gi';
+import { BiCategoryAlt, BiCommand, BiAddToQueue } from 'react-icons/bi';
+import { FiUsers } from 'react-icons/fi';
+import Axios from 'axios';
+
+const baseURL = 'http://localhost:5500/api/auth'
+
+function logout() {
+  Axios.get(`${baseURL}/logout`)
+    .then((res) => {
+      if (res.data) {
+        localStorage.clear()
+      }
+    })
+    .catch(err =>
+      console.log(err)
+    )
+}
 
 
 const Dashboard = () => {
   const [open, setOpen] = useState(true)
-  const Menus = [
-    { title: "Dashboad", src: "dashboard", route: '' },
-    { title: "Salade", src: "salade", gap: true , route:'/' },
-    { title: "Pizza", src: "pizza" , route:'/' },
-    { title: "Tacos", src: "tacos" , route:'/' },
-    { title: "Sandwich", src: "sandwich" , route:'/' },
-    { title: "Desserts", src: "dessert" , route:'/' },
-    { title: "Setting", src: "setting", gap: true , route:'setting' },
-    { title: "Logout", src: "logout" , route:'logout' },
+
+  // const MenusClient = [
+  //   { title: "Dashboad", icon: AiOutlineDashboard, route: '' },
+  //   { title: "Salade", icon: GiHotMeal, gap: true, route: '/' },
+  //   { title: "Pizza", icon: GiHotMeal, route: '/' },
+  //   { title: "Tacos", icon: GiHotMeal, route: '/' },
+  //   { title: "Sandwich", icon: GiHotMeal, route: '/' },
+  //   { title: "Desserts", icon: GiHotMeal, route: '/' },
+  //   { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
+  //   { title: "Logout", icon: AiOutlineLogout, route: '/login' },
+  // ]
+
+  const MenusManager = [
+    { title: "Dashboad", icon: AiOutlineDashboard, route: '' },
+    { title: "Repas", icon: GiMeal, gap: true, route: 'repas' },
+    { title: "Category", icon: BiCategoryAlt, route: '/' },
+    { title: "Commands", icon: BiCommand, route: '/' },
+    { title: "Users", icon: FiUsers, route: '/' },
+    { title: "AddLivreur", icon: BiAddToQueue, route: '/' },
+    { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
+    { title: "Logout", icon: AiOutlineLogout, route: 'login' },
   ]
+  
   return (
     <div>
-      <div className="flex  ">
-        <div className={`${open ? 'w-72' : 'w-20'} duration-300 p-5 pt-8 h-screen bg-dark relative`}>
+      <div className="flex">
+        <div className={`${open ? 'w-72' : 'w-20'} duration-300 relative px-5 min-h-screen bg-dark`}>
           <img src="../../../public/assets/left-arrow.png"
             className={`bg-white absolute cursor-pointer rounded-full
           -right-3 top-9 w-8 border-4 p-1 border-dark ${!open && "rotate-180"}`}
@@ -25,15 +57,25 @@ const Dashboard = () => {
           />
           <div className="flex gap-x-4 items-center justify-center ">
             <img src="../../../public/assets/logo.png"
-              className={`cursor-pointer w-16 
-            // ${open && "rotate-[360deg]"}`}
+              className={`cursor-pointer w-16`}
             />
           </div>
-          <ul className="pt-6">
-            {Menus.map((menu, index) => (
+          {/* Menus Client */}
+          {/* <ul className="pt-6">
+            {MenusClient.map((menu, index) => (
               <li key={index} className={`text-gray-300 text-sm flex w-11 items-center gap-x-4 cursor-pointer p-2 hover:bg-zinc-800 rounded-md ${menu.gap ? "mt-12" : " "}`}>
-                <img src={`../../../public/assets/${menu.src}.png`} className="w-8" />
-                <Link to={menu.route}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg`}>{menu.title}</span></Link>
+                <div className="text-white">{React.createElement(menu?.icon, { size: "25" })}</div>
+                <Link to={menu.route} onClick={logout}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
+              </li>
+            ))}
+          </ul> */}
+
+          {/* Menus Manager */}
+          <ul className="pt-6">
+            {MenusManager.map((menu, index) => (
+              <li key={index} className={`text-gray-300 text-sm flex w-11 items-center gap-x-4 cursor-pointer p-2 hover:bg-zinc-800 rounded-md ${menu.gap ? "mt-12" : " "}`}>
+                <div className="text-white">{React.createElement(menu?.icon, { size: "25" })}</div>
+                <Link to={menu.route} onClick={logout}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
               </li>
             ))}
           </ul>

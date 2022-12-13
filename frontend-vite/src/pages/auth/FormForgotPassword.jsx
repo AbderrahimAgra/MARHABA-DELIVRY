@@ -4,11 +4,11 @@ import { Outlet, Link, useParams } from "react-router-dom";
 import Label from '../../components/Label'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-// import Axios from "axios";
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import Axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// const baseURL = 'http://localhost:4044/api/auth'
+const baseURL = 'http://localhost:5500/api/auth'
 
 function FormForgotPassword() {
   const {token} = useParams()
@@ -23,7 +23,27 @@ function FormForgotPassword() {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(user)
+    Axios.post(`${baseURL}/form-forgot-password`, {
+      ...user,
+      token
+    })
+    .then(res => {
+
+      toast.warn('🦄 '+ res.data, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   return (
@@ -42,7 +62,7 @@ function FormForgotPassword() {
                   <Input type="password" onChange={onChange} name="confirm_password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********" />
                 </div>
                 <Button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800" btn="Send" />
-                {/* <ToastContainer /> */}
+                <ToastContainer />
               </form>
             </div>
           </div>

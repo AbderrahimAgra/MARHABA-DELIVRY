@@ -122,18 +122,17 @@ const verifyForgotPassword = async (req, res) => {
   if (verify_token) {
     const verify_token_email = await User.findOne({ email: verify_token.email })
     const new_token = await jwt.sign({ id: verify_token_email.id }, process.env.SECRET)
-    // res.json({ message: 'form-forgot-password', token: new_token })
-    res.redirect('http://localhost:5173/form-forgot-password/' + new_token);
+    storage('new-token', new_token)
+    res.redirect('http://localhost:5173/form-forgot-password/');
   } else res.send('Token Not Found')
 }
 
 const formForgotPassword = async (req, res) => {
-  const { password, confirm_password, token } = req.body
+  const { password, confirm_password } = req.body
+  const token = storage('new-token')
 
-  if (!token) res.send('Token Not Found')
-  if (password == '' || confirm_password == '') throw Error('Please fill all the fields to change your Password')
+  if (token == '' || password == '' || confirm_password == '') throw Error('Please fill all the fields to change your Password')
   if (password != confirm_password) throw Error('Password not mathed')
-
   const verify_form_token = await jwt.verify(token, process.env.SECRET)
   if (verify_form_token) {
     const find_forgot_user = await User.findById(verify_form_token.id)
@@ -141,7 +140,10 @@ const formForgotPassword = async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const forgotPass_hashed = await bcrypt.hash(password, salt)
     const update_password = await User.updateOne({ _id: find_forgot_user._id }, { $set: { password: forgotPass_hashed } })
-    res.send('Your Password is updated')
+    if (update_password) {
+      res.send('Your Password is updated')
+      // res.redirect('http://localhost:5173/login')
+    } else throw Error('Not Update Password')
   }
   else res.send('Token Not Found')
 }
