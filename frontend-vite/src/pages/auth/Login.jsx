@@ -47,7 +47,7 @@ function Login() {
         const role = localStorage.getItem('role')
 
         if(role === 'client'){
-          window.location = '/client'
+          window.location = 'dashboard/client'
         }
         else if(role === 'livreur'){
           window.location  = '/livreur'
@@ -71,11 +71,11 @@ function Login() {
               <form onSubmit={onSubmit} className="space-y-4 md:space-y-6">
                 <div>
                   <Label htmlFor="Email" class="block mb-3 text-sm font-medium text-white" label="Email" />
-                  <Input type="text" name="email" onChange={onChange} id="email" class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
+                  <Input type="text" name="email" onChange={onChange} id="email" class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
                 </div>
                 <div>
                   <Label htmlFor="password" class="block mb-3 text-sm font-medium text-white" label="Password" />
-                  <Input type="password" name="password" onChange={onChange} id="password" class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="*********" />
+                  <Input type="password" name="password" onChange={onChange} id="password" class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="*********" />
                 </div>
                 <div className='flex items-center justify-between'>
                   <div className="flex items-start">
@@ -86,7 +86,7 @@ function Login() {
                       <Label htmlFor="remember" class="text-gray-500 dark:text-gray-300" label="Remember me" />
                     </div>
                   </div>
-                  <Link to="/forget-password" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</Link>
+                  <Link to="/forgot-password" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</Link>
                 </div>
                 <Button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800" btn="Sign in" />
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">Don’t have an account yet?{' '}
