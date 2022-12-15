@@ -18,6 +18,7 @@ import CategoryManager from './pages/user/manager/categoryManager'
 import LivreursManager from './pages/user/manager/LivreursManager'
 import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
+// import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path='livreurs' element={<LivreursManager />} />
           <Route path='clients' element={<ClientsManager />} />
           <Route path='setting' element={<SettingManager />} />
+          {/* <Route path='setting' element={<SettingManager />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
