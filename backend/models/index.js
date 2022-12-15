@@ -10,11 +10,6 @@ db.role = require("./roleModel")
 db.address = require('./addressModel')
 db.order = require('./orderModel')
 db.status = require('./statusModel')
-
-
-
-
-
 db.meal = require('./meal')
 db.category = require('./category')
 db.ordertime = require('./ordertime')
