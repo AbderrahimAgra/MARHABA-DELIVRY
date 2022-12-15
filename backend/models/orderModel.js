@@ -29,7 +29,11 @@ const orderSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Status"
     }
-  ]
+  ],
+  date: {
+    type: Date,
+    default: Date.now
+  }
 })
 
 module.exports = mongoose.model('Order', orderSchema)

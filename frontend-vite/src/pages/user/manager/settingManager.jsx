@@ -1,10 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 
-
-function Setting() {
+function SettingManager() {
   return (
     <div>
       <form className="p-4 pt-9">
@@ -29,4 +27,4 @@ function Setting() {
   )
 }
 
-export default Setting
+export default SettingManager

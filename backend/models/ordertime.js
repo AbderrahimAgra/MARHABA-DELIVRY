@@ -4,10 +4,8 @@ const ordertimeSchema= mongoose.Schema({
 
     repas: [
         {
-            
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "repas"
-              
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "repas"    
         }
     ],
     Quntite: [
@@ -19,16 +17,12 @@ const ordertimeSchema= mongoose.Schema({
     ],
     order: [
         {
-            
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Order"
-              
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Order"
         }
     ],
     visible:{
-        
         type:Boolean,
-
     }
   
 

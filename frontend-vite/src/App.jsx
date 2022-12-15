@@ -13,6 +13,11 @@ import SettingClient from './pages/user/client/settingClient'
 // Pages Manager
 import DashbordManager from './pages/user/manager/dashboardManager'
 import RepasManager from './pages/user/manager/repasManager'
+import CommandManager from './pages/user/manager/commandManager'
+import CategoryManager from './pages/user/manager/categoryManager'
+import LivreursManager from './pages/user/manager/LivreursManager'
+import ClientsManager from './pages/user/manager/clientsManager'
+import SettingManager from './pages/user/manager/settingManager'
 // import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
 
 function App() {
@@ -34,6 +39,11 @@ function App() {
         <Route path='/dashboard/manager' element={<Dashboard />}>
           <Route path='' element={<DashbordManager/>} />
           <Route path='repas' element={<RepasManager />} />
+          <Route path='category' element={<CategoryManager />} />
+          <Route path='command' element={<CommandManager />} />
+          <Route path='livreurs' element={<LivreursManager />} />
+          <Route path='clients' element={<ClientsManager />} />
+          <Route path='setting' element={<SettingManager />} />
           {/* <Route path='setting' element={<SettingManager />} /> */}
         </Route>
       </Routes>
