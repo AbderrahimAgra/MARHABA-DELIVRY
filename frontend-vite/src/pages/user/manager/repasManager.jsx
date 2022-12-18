@@ -119,7 +119,7 @@ function repasManager() {
                   image
                 </td>
                 <td class="py-4 px-6">
-                  {reppa.category}
+                  repas
                 </td>
                 <td class="py-4 px-6">
                  {reppa.price} prix
