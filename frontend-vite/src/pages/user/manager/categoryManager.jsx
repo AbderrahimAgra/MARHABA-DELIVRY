@@ -4,6 +4,7 @@ import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
 
 function categoryManager() {
+
   return (
     <div>
       <div className="p-3 font-bold text-3xl">
