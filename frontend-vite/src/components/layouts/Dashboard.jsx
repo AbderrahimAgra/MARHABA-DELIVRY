@@ -84,8 +84,12 @@ const Dashboard = () => {
           </ul>
         </div>
         <div className="p-3 px-5 text-2xl font-semibold flex-1 h-screen">
+<<<<<<< HEAD
+          <nav className={`${open ? 'ml-72': ''} bg-black ml-20 text-white border-gray-200 px-2 rounded-xl sm:px-4 py-2.5 dark:bg-gray-900`}>
+=======
           <nav className={`${open ? 'ml-72' : ''} bg-black ml-20 text-white border-gray-200 px-2 rounded-xl sm:px-4 py-2.5 dark:bg-gray-900`}>
 
+>>>>>>> f32177d03e0252f5f2905eb660256843589753b3
             <div className="container flex flex-wrap items-center justify-between mx-auto">
               <a href="#" className="flex items-center">
                 <img src="../../../public/assets/logo.png" className="h-6 mr-3 sm:h-9" alt="Marhaba Logo" />
