@@ -13,7 +13,9 @@ function repasManager() {
   const [showModal, setShowModal] = useState(false)
   const [repas, setrepas] = useState([])
 
-  const affichagrepas = async () => {
+
+  const affichagrepas = async() => {
+
     const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
 
     if (datarepas) {
@@ -35,7 +37,12 @@ function repasManager() {
 
   }
 
-  useEffect(() => {
+
+  
+
+
+
+   useEffect(() => {
     affichagrepas();
   }, [])
 

@@ -57,9 +57,6 @@ function categoryManager() {
                 </td>
               </tr>
             ))}
-
-
-
           </tbody>
         </table>
       </div>
