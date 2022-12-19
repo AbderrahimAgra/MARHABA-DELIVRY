@@ -13,7 +13,24 @@ function repasManager() {
   const [showModal, setShowModal] = useState(false)
   const [repas, setrepas] = useState([])
 
-  const affichagrepas = async () => {
+  // const handelchangename = async (e) =>{
+  //    return setname(e.target.value)
+
+  // }
+
+  // const handeldescription = async (e) =>{
+  //   return setdescription(e.target.value)
+  // }
+
+  // const handeprice = async (e) =>{
+  //   return setprice(e.target.value)
+  // }
+  // const handleprice = async (e) => {
+  //   return setcategory(e.target.value)
+  // }
+
+  const affichagrepas = async() => {
+
     const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
 
     if (datarepas) {
@@ -35,7 +52,12 @@ function repasManager() {
 
   }
 
-  useEffect(() => {
+
+
+   }
+
+   useEffect(() => {
+
     affichagrepas();
   }, [])
 
