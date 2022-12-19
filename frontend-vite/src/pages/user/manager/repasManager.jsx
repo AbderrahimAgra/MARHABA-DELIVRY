@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
@@ -36,11 +37,6 @@ function repasManager() {
       })
 
   }
-
-
-  
-
-
 
    useEffect(() => {
     affichagrepas();
@@ -145,7 +141,7 @@ function repasManager() {
                       </div>
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onClick={() => setShowModal(false)} btn='Close' />
+                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => setShowModal(false)} btn='Close' />
                       <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
                     </div>
                   </form>
@@ -163,7 +159,7 @@ function repasManager() {
     </div >
   )
 }
-
+}
 
 
 
