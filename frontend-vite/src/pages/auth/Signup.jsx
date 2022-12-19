@@ -52,28 +52,28 @@ function Signup() {
               <form onSubmit={onSubmit} className="space-y-4 md:space-y-6">
                 <div>
                   <Label htmlFor="fisrt_name" class="block mb-2 text-sm font-medium text-white dark:text-white" label="First Name" />
-                  <Input type="text" onChange={onChange} class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="first_name" name="first_name" placeholder="First Name" />
+                  <Input type="text" onChange={onChange} class="bg-gray-50 border text-black border-gray-300  sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="first_name" name="first_name" placeholder="First Name" />
                 </div>
                 <div>
                   <Label htmlFor="last_name" class="block mb-2 text-sm font-medium text-white dark:text-white" label="Last Name" />
-                  <Input type="text" onChange={onChange} class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="last_name" name="last_name" placeholder="Last Name" />
+                  <Input type="text" onChange={onChange} class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="last_name" name="last_name" placeholder="Last Name" />
                 </div>
                 <div>
                   <Label htmlFor="phone" class="block mb-2 text-sm font-medium text-white dark:text-white" label="Phone" />
-                  <Input type="text" onChange={onChange} class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="phone" name="phone" placeholder="Phone" />
+                  <Input type="text" onChange={onChange} class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="phone" name="phone" placeholder="Phone" />
                 </div>
                 <div>
                   <Label htmlFor="email" class="block mb-2 text-sm font-medium text-white dark:text-white" label="Email" />
-                  <Input type="text" onChange={onChange} class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="email" name="email" placeholder="name@company.com" />
+                  <Input type="text" onChange={onChange} class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="email" name="email" placeholder="name@company.com" />
                 </div>
                 <div className="flex justify-around">
                   <div className="">
                     <Label htmlFor="password" class="block mb-2 text-sm font-medium text-white dark:text-white" label="Password" />
-                    <Input type="password" onChange={onChange} class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="password" name="password" placeholder="*********" />
+                    <Input type="password" onChange={onChange} class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="password" name="password" placeholder="*********" />
                   </div>
                   <div>
                   <Label htmlFor="C_password" class="block mb-2 text-sm font-medium text-white dark:text-white" label="Confirm Password" />
-                  <Input type="password" onChange={onChange} class="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="C_password" name="C_password" placeholder="*********" />
+                  <Input type="password" onChange={onChange} class="bg-gray-50 border border-gray-300 text-black sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="C_password" name="C_password" placeholder="*********" />
                   </div>
                 </div>
                 <div className="flex items-start">

@@ -158,7 +158,7 @@ const findcategory = await Category.find()
         }
        
 }
-// jai un probleme file systemenje les resoudré
+// jai un probleme file systemenje les resoudrÃ©
 const deletproduct = async (req, res) => {
   const id = req.params.id;
   try {

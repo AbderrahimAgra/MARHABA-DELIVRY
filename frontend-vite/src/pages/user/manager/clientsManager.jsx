@@ -18,9 +18,6 @@ function ClientsManager() {
     console.log("error", err)
    }
   }
-
-
-  
   useEffect(() => {
     affichageclient()
   }, [])
