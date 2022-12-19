@@ -1,7 +1,27 @@
-import { React } from "react";
+import { React, useState, useEffect } from "react";
+import axios from 'axios'
+
 import Input from "../../../components/Input"
 
+const baseURL = 'http://localhost:5500/api/user/manager'
+
 function ClientsManager() {
+  const [clients, setClients] = useState([])
+
+  const affichageclient = async() => {
+   const dataclient = await axios.get(`${baseURL}/listclient`)
+   
+   if(dataclient) {
+    setClients(dataclient.data) 
+    console.log(dataclient.data)
+   }else{
+    console.log("error", err)
+   }
+  }
+  useEffect(() => {
+    affichageclient()
+  }, [])
+
   return (
     <div>
       <div className="p-3 font-bold text-3xl">
@@ -19,48 +39,32 @@ function ClientsManager() {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                Abdenacer Sandali
-              </td>
-              <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                <span>+</span>212762401604
-              </td>
-              <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                abdenacer.sandali@gmail.com
-              </td>
-              <td className="py-4 px-6 flex items-center">
-                <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                Abderahman Agra
-              </td>
-              <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                <span>+</span>212612394758
-              </td>
-              <td className="py-4 px-6 text-gray-600">
-                Agra.abderahman@gmail.com
-              </td>
-              <td className="py-4 px-6 flex items-center">
-                <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
-              </td>
-            </tr>
-            <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="py-4 px-6 text-gray-600">
-                Nainiaa Mehdi
-              </td>
-              <td className="text-gray-600 py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                <span>+</span>212729386038
-              </td>
-              <td className="py-4 px-6 text-gray-600">
-                nainiaa.mehdi@gmail.com
-              </td>
-              <td className="py-4 px-6 text-gray-600 flex items-center ">
-                <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
-              </td>
-            </tr>
+            {clients.map((client, index)=>{
+              return(
+
+            <tr key={index} className="bg-white border-b text-center dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
+                  {client.first_name} {client.last_name}
+                </td>
+                <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
+                  <span>+</span>{client.phone}
+                </td>
+                <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
+                  {client.email}
+                </td>
+                <td className="py-4 px-6 items-center">
+                    {/* <button  onclick={isbanned(livreur._id)}>Banner</button> */}
+                    {/* <Input type="checkbox" id="status" value={livreur.isBanned} checked={isBanned === livreur.isBanned} name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" /> */}
+                    <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
+
+                </td>
+             </tr> 
+              )
+
+
+      
+})}  
           </tbody>
         </table>
       </div>

@@ -4,7 +4,9 @@ import { AiOutlineDashboard, AiFillSetting, AiOutlineLogout } from 'react-icons/
 import { GiMeal } from 'react-icons/gi';
 import { BiCategoryAlt, BiCommand, BiAddToQueue } from 'react-icons/bi';
 import { FiUsers } from 'react-icons/fi';
+
 import { TbTruckDelivery } from 'react-icons/tb';
+
 import Axios from 'axios';
 
 const baseURL = 'http://localhost:5500/api/auth'
@@ -39,13 +41,15 @@ const Dashboard = () => {
   const MenusManager = [
     { title: "Dashboad", icon: AiOutlineDashboard, route: '' },
     { title: "Repas", icon: GiMeal, gap: true, route: 'repas' },
+
     { title: "Category", icon: BiCategoryAlt, route: 'category' },
     { title: "Commands", icon: BiCommand, route: 'command' },
     { title: "Livreurs", icon: TbTruckDelivery, route: 'livreurs' },
     { title: "Clients", icon: FiUsers, route: 'clients' },
     { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
     { title: "Logout", icon: AiOutlineLogout, route: '/login' },
-   ]
+
+  ]
   
   return (
     <div>
