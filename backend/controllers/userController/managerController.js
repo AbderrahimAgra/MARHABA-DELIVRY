@@ -16,12 +16,7 @@ const managerUser = async (req, res) => {
   const user = await User.findById(token_user.id)
   const role_user = await Role.findById(user.role)
   if (role_user.name != "manager") throw Error("You Can' To Access in This Page")
-  res.json({
-    first_name: user.first_name,
-    last_name: user.last_name,
-    email: user.email,
-    role: role_user.name
-  })
+  res.send(user)
 }
 
 const addcategory = async (req, res) => {
