@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
@@ -13,10 +12,6 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 function repasManager() {
   const [showModal, setShowModal] = useState(false)
   const [repas, setrepas] = useState([])
-  // const [name, setname] = useState("")
-  // const [description, setdescription] =  useState("")
-  // const [price, setprice] = useState("")
-  // const [category, setcategory] = useState("")
 
   // const handelchangename = async (e) =>{
   //    return setname(e.target.value)
@@ -35,24 +30,29 @@ function repasManager() {
   // }
 
   const affichagrepas = async() => {
-    const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
-    
-    if(datarepas) {
-      setrepas(datarepas.data) 
-    }else{
-     console.log("error", err)
-    }
-   }
 
-   const deleted = async (id) => {
-    await axios.delete(`${baseURL}/deleteProduct/${id}`)
-    .then((e) => {
-       console.log("success")
-       window.location.reload(false)
-    })
-    .catch((err) => {
+    const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
+
+    if (datarepas) {
+      setrepas(datarepas.data)
+    } else {
       console.log("error", err)
-    })
+    }
+  }
+
+  const deleted = async (id) => {
+    await axios.delete(`${baseURL}/deleteProduct/${id}`)
+      .then((e) => {
+        console.log("success")
+        window.location.reload(false)
+      })
+      .catch((err) => {
+        console.log("error", err)
+      })
+
+  }
+
+
 
    }
 
@@ -68,7 +68,7 @@ function repasManager() {
         <button type="button" onClick={() => setShowModal(true)} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
       </div>
 
-      <div class={` ${open ? 'ml-72' : ''} overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
+      <div class={`${open ? 'ml-72' : null} overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>

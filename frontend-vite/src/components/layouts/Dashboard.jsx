@@ -3,8 +3,8 @@ import { Link, Outlet } from 'react-router-dom';
 import { AiOutlineDashboard, AiFillSetting, AiOutlineLogout } from 'react-icons/ai';
 import { GiMeal } from 'react-icons/gi';
 import { BiCategoryAlt, BiCommand, BiAddToQueue } from 'react-icons/bi';
+import { BsFillCartCheckFill } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
-
 import { TbTruckDelivery } from 'react-icons/tb';
 
 import Axios from 'axios';
@@ -41,16 +41,14 @@ const Dashboard = () => {
   const MenusManager = [
     { title: "Dashboad", icon: AiOutlineDashboard, route: '' },
     { title: "Repas", icon: GiMeal, gap: true, route: 'repas' },
-
     { title: "Category", icon: BiCategoryAlt, route: 'category' },
     { title: "Commands", icon: BiCommand, route: 'command' },
     { title: "Livreurs", icon: TbTruckDelivery, route: 'livreurs' },
     { title: "Clients", icon: FiUsers, route: 'clients' },
     { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
     { title: "Logout", icon: AiOutlineLogout, route: '/login' },
-
   ]
-  
+
   return (
     <div>
       <div className="flex relative">
@@ -92,29 +90,12 @@ const Dashboard = () => {
                 <img src="../../../public/assets/logo.png" className="h-6 mr-3 sm:h-9" alt="Marhaba Logo" />
               </a>
               <div class="flex items-center md:order-2">
+                <div>
+                  <BsFillCartCheckFill className='mr-2' />
+                </div>
                 <button type="button" class="flex mr-3 text-sm  rounded-full md:mr-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                  {/* <h1>Admin</h1> */}
                   <img className="w-10 h-10 rounded-full bg-white" src="../../../public/assets/profil.png" alt="pPofil photo" />
                 </button>
-              </div>
-              <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-                <ul class="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-white  rounded  md:text-white md:p-0 dark:text-white" aria-current="page">Home</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4  md:p-0 text-white">About</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 md:p-0 text-white">Services</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 md:p-0 text-white">Pricing</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 md:p-0 text-white">Contact</a>
-                  </li>
-                </ul>
               </div>
             </div>
           </nav>
