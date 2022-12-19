@@ -1,8 +1,5 @@
 import { React, useState, useEffect } from 'react'
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
-=======
->>>>>>> f32177d03e0252f5f2905eb660256843589753b3
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
@@ -15,7 +12,7 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 
 function repasManager() {
   const [showModal, setShowModal] = useState(false)
-  const [repas, setrepas] = useState([])
+  const [repas, setrepas] = useState([]) 
 
   const affichagrepas = async() => {
 
@@ -38,19 +35,7 @@ function repasManager() {
         console.log("error", err)
       })
 
-<<<<<<< HEAD
    useEffect(() => {
-
-=======
-  }
-
-
-  
-
-
-
-   useEffect(() => {
->>>>>>> f32177d03e0252f5f2905eb660256843589753b3
     affichagrepas();
   }, [])
 
@@ -171,7 +156,7 @@ function repasManager() {
     </div >
   )
 }
-
+}
 
 
 
