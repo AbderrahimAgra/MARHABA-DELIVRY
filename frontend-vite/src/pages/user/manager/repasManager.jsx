@@ -1,14 +1,48 @@
-import { React, useState } from "react"
-import { Link } from "react-router-dom";
+import { React, useState, useEffect } from 'react'
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
+import axios from "axios";
+
+const baseURL = 'http://localhost:5500/api/user/manager'
 
 
 function repasManager() {
   const [showModal, setShowModal] = useState(false)
+  const [repas, setrepas] = useState([])
+
+  const affichagrepas = async () => {
+    const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
+
+    if (datarepas) {
+      setrepas(datarepas.data)
+    } else {
+      console.log("error", err)
+    }
+  }
+
+  const deleted = async (id) => {
+    await axios.delete(`${baseURL}/deleteProduct/${id}`)
+      .then((e) => {
+        console.log("success")
+        window.location.reload(false)
+      })
+      .catch((err) => {
+        console.log("error", err)
+      })
+
+  }
+
+
+
+
+
+  useEffect(() => {
+    affichagrepas();
+  }, [])
+
 
   return (
     <div>
@@ -29,71 +63,29 @@ function repasManager() {
             </tr>
           </thead>
           <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Apple MacBook Pro 17"
-              </th>
-              <td class="py-4 px-6">
-                Sliver
-              </td>
-              <td class="py-4 px-6">
-                Sliver
-              </td>
-              <td class="py-4 px-6">
-                Laptop
-              </td>
-              <td class="py-4 px-6">
-                $2999
-              </td>
-              <td class="py-4 px-6 flex text-right">
-                <Link to="#" className="text-black text-xl mr-3"><FiEdit /></Link>
-                <Link to="#" className="text-black text-2xl"><MdDeleteSweep /></Link>
-                {/* <Link to="#" className="text-black text-xl mr-3"><FiEdit /></Link>
-                <Link to="#" className="text-black text-2xl"><MdDeleteSweep /></Link> */}
-              </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Microsoft Surface Pro
-              </th>
-              <td class="py-4 px-6">
-                White
-              </td>
-              <td class="py-4 px-6">
-                Laptop PC
-              </td>
-              <td class="py-4 px-6">
-                Laptop PC
-              </td>
-              <td class="py-4 px-6">
-                $1999
-              </td>
-              <td class="py-4 px-6 flex text-right">
-                <Link to="#" className="text-black text-xl mr-3"><FiEdit /></Link>
-                <Link to="#" className="text-black text-2xl"><MdDeleteSweep /></Link>
-              </td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Magic Mouse 2
-              </th>
-              <td class="py-4 px-6">
-                Black
-              </td>
-              <td class="py-4 px-6">
-                Accessories
-              </td>
-              <td class="py-4 px-6">
-                Accessories
-              </td>
-              <td class="py-4 px-6">
-                $99
-              </td>
-              <td class="py-4 px-6 flex text-right">
-                <Link to="#" className="text-black text-xl mr-3"><FiEdit /></Link>
-                <Link to="#" className="text-black text-2xl"><MdDeleteSweep /></Link>
-              </td>
-            </tr>
+            {repas.map((reppa, index) => (
+              <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {reppa.name}
+                </th>
+                <td class="py-4 px-6">
+                  {reppa.description}
+                </td>
+                <td class="py-4 px-6">
+                  image
+                </td>
+                <td class="py-4 px-6">
+                  repas
+                </td>
+                <td class="py-4 px-6">
+                  {reppa.price} prix
+                </td>
+                <td class="py-4 px-6 flex text-right">
+                  <button className="text-black text-xl mr-3"><FiEdit /></button>
+                  <button type='button' onClick={(e) => { e.preventDefault(); deleted(reppa._id) }} className="text-black text-2xl"><MdDeleteSweep /></button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -150,8 +142,7 @@ function repasManager() {
                       </div>
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-                      {/* <Button type="submit" class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Close" onClick={() => setShowModal(false)}  /> */}
-                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800'onClick={() => setShowModal(false)} btn='Close' />
+                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onClick={() => setShowModal(false)} btn='Close' />
                       <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
                     </div>
                   </form>
