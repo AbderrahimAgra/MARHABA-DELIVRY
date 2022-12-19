@@ -9,7 +9,6 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 function livreursManager() {
   const [showModal, setShowModal] = useState(false)
   const [livreurs, setLivreurs] = useState([])
-  const [checked, setCkecked] = useState(false)
 
   const fetchLivreurs = async () => {
     const dataLivreurs = await axios.get(`${baseURL}/listlivreur`)
@@ -20,36 +19,23 @@ function livreursManager() {
     }
   }
 
-  // const isbanned = async (id) =>{
-
-  //   const bannuser = await axios.put(`${baseURL}/updateuser/${id}`)
-  //   .then(res => {
-  //     console.log('bien')
-  //   })
-  //   .catch(err => {
-  //     console.log('nnnnnnn')
-  //   })
-  // }
 
   useEffect(() => {
     fetchLivreurs()
+    
   }, [])
 
   return (
-    <div>
 
-      <div className="flex justify-between">
+    <div>
+        
         <div className="p-3 font-bold text-3xl">
           <h1 className="text-dark">List Livreurs</h1>
         </div>
-        <div className="m-3">
-          <button type="button" onClick={() => isbanned(true)} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
-        </div>
-      </div>
 
 
-      <div className="overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <div className={`${open ? 'ml-72' : ''} overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
+        <table className={` w-full text-sm text-left text-gray-500 dark:text-gray-400`}>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="text-center">
               <th scope="col" className="py-2 px-4">Name Complete</th>
@@ -59,53 +45,25 @@ function livreursManager() {
             </tr>
           </thead>
           <tbody>
-            {livreurs.map((livreur, index) => (
-              <tr key={index} className="bg-white border-b text-center dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {livreur.first_name} {livreur.last_name}
-                </td>
-                <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  <span>+</span>{livreur.phone}
-                </td>
-                <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                  {livreur.email}
-                </td>
-                <td className="py-4 px-6 items-center">
-                    {/* <button  onclick={isbanned(livreur._id)}>Banner</button> */}
-                    {/* <Input type="checkbox" id="status" value={livreur.isBanned} checked={isBanned === livreur.isBanned} name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" /> */}
-                    <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
-
-                </td>
-              </tr>
-            ))}
-            {/* <tr className="bg-white border-b text-center dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                Abderahman Agra
-              </td>
-              <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
-                <span>+</span>212612394758
-              </td>
-              <td className="py-4 px-6 text-gray-600">
-                Agra.abderahman@gmail.com
-              </td>
-              <td className="py-4 px-6 items-center">
-                <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
-              </td>
-            </tr>
-            <tr className="bg-white border-b text-center dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="py-4 px-6 text-gray-600">
-                Nainiaa Mehdi
-              </td>
-              <td className="text-gray-600 py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                <span>+</span>212729386038
-              </td>
-              <td className="py-4 px-6 text-gray-600">
-                nainiaa.mehdi@gmail.com
-              </td>
-              <td className="py-4 px-6 text-gray-600 items-center ">
-                <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
-              </td>
-            </tr> */}
+            {livreurs.map((livreur, index) => {
+              console.log(livreur);
+              return (
+                <tr  key={index} className={`bg-white border-b text-center dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}>
+                  <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
+                    {livreur.first_name} {livreur.last_name}
+                  </td>
+                  <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
+                    <span>+</span>{livreur.phone}
+                  </td>
+                  <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
+                    {livreur.email}
+                  </td>
+                  <td className="py-4 px-6 items-center">
+                    <Input type="checkbox" checked={Boolean(livreur.isBanned)} id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

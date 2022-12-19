@@ -16,12 +16,7 @@ const managerUser = async (req, res) => {
   const user = await User.findById(token_user.id)
   const role_user = await Role.findById(user.role)
   if (role_user.name != "manager") throw Error("You Can' To Access in This Page")
-  res.json({
-    first_name: user.first_name,
-    last_name: user.last_name,
-    email: user.email,
-    role: role_user.name
-  })
+  res.send(user)
 }
 
 const addcategory = async (req, res) => {
@@ -52,7 +47,8 @@ const addcategory = async (req, res) => {
 }
 
 const findcategory = async (req, res) => {
-  const findcategoris = await Category.findOne()
+
+  const findcategoris = await Category.find()
   if (findcategoris) {
     res.json(findcategoris)
   }
@@ -127,7 +123,8 @@ const addimage = async (req, res) => {
 // })
 // const path = req.file.path;
 const findcategory = await Category.find()
-              const { name, description,price,category } = req.body;
+         console.log(findcategory)
+              const { name, description,price, category } = req.body;
               const newProduct = {
                 name:name, 
                 description:description,
@@ -161,7 +158,7 @@ const findcategory = await Category.find()
         }
        
 }
-// jai un probleme file systemenje les resoudré
+// jai un probleme file systemenje les resoudrÃ©
 const deletproduct = async (req, res) => {
   const id = req.params.id;
   try {
@@ -186,7 +183,9 @@ const deletproduct = async (req, res) => {
    const GetAllProduct = async(req, res) => {
     const allProduct = await Meal.find();
     try {
-      if (allProduct) res.json({ allProduct });
+      if (allProduct) {
+        res.send(allProduct);
+      }
       else throw new Error("no product found");
     } catch (error) {
       throw new Error(error);

@@ -1,6 +1,8 @@
 import { React } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
+import axios from 'axios'
+import ProtectedRoutes from './ProtectedRoutes';
 // Pages the Auth
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
@@ -20,6 +22,18 @@ import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
 // import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
 
+window.addEventListener("storage", () => {
+  axios
+    .get('http://localhost:5500/api/auth/logout')
+    .then(() => {
+      localStorage.clear();
+      window.location.replace('http://127.0.0.1:5173/login');
+    })
+    .catch(() => {
+      console.log("Error");
+    });
+});
+
 function App() {
   return (
     <BrowserRouter>
@@ -31,21 +45,24 @@ function App() {
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
         {/* { Client } */}
-        <Route path='/dashboard/client' element={<Dashboard />}>
-          <Route path='' element={<DashbordClient />} />
-          <Route path='setting' element={<SettingClient />} />
-        </Route>
+        {/* <Route element={<ProtectedRoutes />}> */}
+          <Route path='/dashboard/client' element={<Dashboard />}>
+            <Route path='' element={<DashbordClient />} />
+            <Route path='setting' element={<SettingClient />} />
+          </Route>
+        {/* </Route> */}
         {/* { Manager } */}
-        <Route path='/dashboard/manager' element={<Dashboard />}>
-          <Route path='' element={<DashbordManager/>} />
-          <Route path='repas' element={<RepasManager />} />
-          <Route path='category' element={<CategoryManager />} />
-          <Route path='command' element={<CommandManager />} />
-          <Route path='livreurs' element={<LivreursManager />} />
-          <Route path='clients' element={<ClientsManager />} />
-          <Route path='setting' element={<SettingManager />} />
-          {/* <Route path='setting' element={<SettingManager />} /> */}
-        </Route>
+        {/* <Route element={<ProtectedRoutes />}> */}
+          <Route path='/dashboard/manager' element={<Dashboard />}>
+            <Route path='' element={<DashbordManager />} />
+            <Route path='repas' element={<RepasManager />} />
+            <Route path='category' element={<CategoryManager />} />
+            <Route path='command' element={<CommandManager />} />
+            <Route path='livreurs' element={<LivreursManager />} />
+            <Route path='clients' element={<ClientsManager />} />
+            <Route path='setting' element={<SettingManager />} />
+          </Route>
+        {/* </Route> */}
       </Routes>
     </BrowserRouter>
   );
