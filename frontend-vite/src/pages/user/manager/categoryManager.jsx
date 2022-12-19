@@ -6,11 +6,11 @@ import { MdDeleteSweep } from 'react-icons/md'
 function categoryManager() {
   return (
     <div>
-      <div className="p-3 font-bold text-3xl">
+      <div className={`${open ? 'ml-72': ''} p-3 font-bold text-3xl`}>
         <h1>List Category</h1>
       </div>
 
-      <div class="overflow-x-auto drop-shadow-2xl  relative">
+      <div class={`${open ? 'ml-72': 'ml-0'} overflow-x-auto drop-shadow-2xl  relative`}>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>

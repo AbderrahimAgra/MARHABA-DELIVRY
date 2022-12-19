@@ -121,45 +121,46 @@ const listlivreur = async (req, res) => {
 }
 
 const addimage = async (req, res) => {
-// res.send({
-//   file: req.file.filename,
-//   path: req.path
-// })
-// const path = req.file.path;
-const findcategory = await Category.find()
-              const { name, description,price,category } = req.body;
-              const newProduct = {
-                name:name, 
-                description:description,
-                price:price,
-                category:category,
-                images:req.file.filename
+  // res.send({
+  //   file: req.file.filename,
+  //   path: req.path
+  // })
+  // const path = req.file.path;
+  const findcategory = await Category.find()
+  const { name, description, price, category } = req.body;
+  const newProduct = {
+    name: name,
+    description: description,
+    price: price,
+    category: category,
+    images: req.file.filename
 
-              }
-              console.log(newProduct);
-//validation des field
-            const isformfield = Object.values(newProduct).every((value)=>{
-              if(value){
-                return true;
-              }
-              else {
-                return false;
-              }
-            })
+  }
+  console.log(newProduct);
+  //validation des field
+  const isformfield = Object.values(newProduct).every((value) => {
+    if (value) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
 
-            console.log(isformfield);
-      
-        
-           await Meal.create(newProduct);
-           console.log(newProduct);
-         
-           try { res.status(201).json("product is added")
-      
-        } catch (error) {
-          throw new Error("product is not added");
-          
-        }
-       
+  console.log(isformfield);
+
+
+  await Meal.create(newProduct);
+  console.log(newProduct);
+
+  try {
+    res.status(201).json("product is added")
+
+  } catch (error) {
+    throw new Error("product is not added");
+
+  }
+
 }
 // jai un probleme file systemenje les resoudré
 const deletproduct = async (req, res) => {
@@ -170,10 +171,10 @@ const deletproduct = async (req, res) => {
     // const directoryPath = 'C:\Users\Youcode\Desktop\MARHABA-DELIVRY\backend\images\1671028061674.png';
     try {
       fs.unlinkSync(`C:/Users/Youcode/Desktop/MARHABA-DELIVRY/backend/images/${result.images[0]}`);
-        console.log('deleted from fs file');
-    
+      console.log('deleted from fs file');
+
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
     await Meal.findOneAndDelete({ _id: id });
     res.status(200).json({ code: 200, message: "Product deleted" });
@@ -181,17 +182,17 @@ const deletproduct = async (req, res) => {
     throw new Error(error);
   }
 
-   }
+}
 
-   const GetAllProduct = async(req, res) => {
-    const allProduct = await Meal.find();
-    try {
-      if (allProduct) res.json({ allProduct });
-      else throw new Error("no product found");
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+const GetAllProduct = async (req, res) => {
+  const allProduct = await Meal.find();
+  try {
+    if (allProduct) res.json({ allProduct });
+    else throw new Error("no product found");
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 const updateproduct = async (req, res) => {
   // const {id} = req.params
   // const updateprod = {
@@ -209,7 +210,7 @@ const updateproduct = async (req, res) => {
   //   }
   // })
   // const finddata = awiat Meal.findById({_id:id})
-  const {id} = req.params
+  const { id } = req.params
   console.log(req.params)
   const UpdatedProduct = {
     name: req.body.name,
@@ -219,30 +220,29 @@ const updateproduct = async (req, res) => {
     images: req.file.filename
 
   };
-   console.log( req.body.name)
+  console.log(req.body.name)
 
-    try {
-      await Meal.findByIdAndUpdate(
-        { _id: id},
-        UpdatedProduct,
-        
-      );
+  try {
+    await Meal.findByIdAndUpdate(
+      { _id: id },
+      UpdatedProduct,
+    );
 
-      res.status(201).json({
-        message: "Product updated successfully!",
-      });
-    } catch (error) {
-      res.status(400).json({
-        error: error,
-      });
-    }
+    res.status(201).json({
+      message: "Product updated successfully!",
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: error,
+    });
   }
+}
 
 
 
 
-      
-  
+
+
 
 
 
