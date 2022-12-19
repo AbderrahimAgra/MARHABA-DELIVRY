@@ -15,6 +15,7 @@ function logout() {
       if (res.data) {
         localStorage.clear()
       }
+
     })
     .catch(err =>
       console.log(err)
