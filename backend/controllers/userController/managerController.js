@@ -52,7 +52,8 @@ const addcategory = async (req, res) => {
 }
 
 const findcategory = async (req, res) => {
-  const findcategoris = await Category.findOne()
+
+  const findcategoris = await Category.find()
   if (findcategoris) {
     res.json(findcategoris)
   }
@@ -127,7 +128,8 @@ const addimage = async (req, res) => {
 // })
 // const path = req.file.path;
 const findcategory = await Category.find()
-              const { name, description,price,category } = req.body;
+         console.log(findcategory)
+              const { name, description,price, category } = req.body;
               const newProduct = {
                 name:name, 
                 description:description,
@@ -186,7 +188,9 @@ const deletproduct = async (req, res) => {
    const GetAllProduct = async(req, res) => {
     const allProduct = await Meal.find();
     try {
-      if (allProduct) res.json({ allProduct });
+      if (allProduct) {
+        res.send(allProduct);
+      }
       else throw new Error("no product found");
     } catch (error) {
       throw new Error(error);
