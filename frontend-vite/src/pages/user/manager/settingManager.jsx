@@ -5,7 +5,7 @@ import Button from "../../../components/Button";
 function SettingManager() {
   return (
     <div>
-      <form className="p-4 pt-9">
+      <form className={`${open ? 'ml-72' : ''} p-4 pt-9`}>
         <div class="relative z-0 mb-6 w-full group">
           <Input type="text" name="first_name" id="first_name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="First Name" required />
         </div>
