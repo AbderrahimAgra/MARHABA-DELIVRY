@@ -12,7 +12,8 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 
 function repasManager() {
   const [showModal, setShowModal] = useState(false)
-  const [repas, setrepas] = useState([]) 
+  const [repas, setrepas] = useState([])
+
 
   const affichagrepas = async() => {
 
@@ -34,6 +35,8 @@ function repasManager() {
       .catch((err) => {
         console.log("error", err)
       })
+
+  }
 
    useEffect(() => {
     affichagrepas();

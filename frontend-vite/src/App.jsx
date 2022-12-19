@@ -2,7 +2,7 @@ import { React } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import axios from 'axios'
-// import ProtectedRoutes from './ProtectedRoutes';
+import ProtectedRoutes from './ProtectedRoutes';
 // Pages the Auth
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
