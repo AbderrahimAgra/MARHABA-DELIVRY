@@ -28,19 +28,14 @@ function livreursManager() {
   return (
 
     <div>
-
-      <div className="flex justify-between">
+        
         <div className="p-3 font-bold text-3xl">
           <h1 className="text-dark">List Livreurs</h1>
         </div>
-        <div className="m-3">
-          <button type="button" onClick={() => isbanned(true)} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
-        </div>
-      </div>
 
 
-      <div className={`overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
-        <table className={`${open ? 'ml-72': ''} w-full text-sm text-left text-gray-500 dark:text-gray-400`}>
+      <div className={`${open ? 'ml-72' : ''} overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
+        <table className={` w-full text-sm text-left text-gray-500 dark:text-gray-400`}>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="text-center">
               <th scope="col" className="py-2 px-4">Name Complete</th>
@@ -53,7 +48,7 @@ function livreursManager() {
             {livreurs.map((livreur, index) => {
               console.log(livreur);
               return (
-                <tr  key={index} className={`${open ? 'ml-72': ''} bg-white border-b text-center dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}>
+                <tr  key={index} className={`bg-white border-b text-center dark:bg-gray-600 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}>
                   <td scope="row" className="py-4 px-6 font-medium text-gray-600 whitespace-nowrap dark:text-white">
                     {livreur.first_name} {livreur.last_name}
                   </td>
