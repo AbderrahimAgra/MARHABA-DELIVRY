@@ -1,4 +1,5 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect } from 'react
+import { Link } from "react-router-dom";
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
@@ -12,28 +13,50 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 function repasManager() {
   const [showModal, setShowModal] = useState(false)
   const [repas, setrepas] = useState([])
+  // const [name, setname] = useState("")
+  // const [description, setdescription] =  useState("")
+  // const [price, setprice] = useState("")
+  // const [category, setcategory] = useState("")
 
-  const affichagrepas = async () => {
+  // const handelchangename = async (e) =>{
+  //    return setname(e.target.value)
+
+  // }
+
+  // const handeldescription = async (e) =>{
+  //   return setdescription(e.target.value)
+  // }
+
+  // const handeprice = async (e) =>{
+  //   return setprice(e.target.value)
+  // }
+  // const handleprice = async (e) => {
+  //   return setcategory(e.target.value)
+  // }
+
+
+  const affichagrepas = async() => {
     const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
-
-    if (datarepas) {
-      setrepas(datarepas.data)
-    } else {
-      console.log("error", err)
+    
+    if(datarepas) {
+      setrepas(datarepas.data) 
+    }else{
+     console.log("error", err)
     }
-  }
+   }
 
-  const deleted = async (id) => {
+   const deleted = async (id) => {
     await axios.delete(`${baseURL}/deleteProduct/${id}`)
-      .then((e) => {
-        console.log("success")
-        window.location.reload(false)
-      })
-      .catch((err) => {
-        console.log("error", err)
-      })
+    .then((e) => {
+       console.log("success")
+       window.location.reload(false)
+    })
+    .catch((err) => {
+      console.log("error", err)
+    })
 
-  }
+   }
+
 
 
 
