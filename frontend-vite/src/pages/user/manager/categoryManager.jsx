@@ -8,6 +8,7 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 
 function categoryManager() {
   const [category, setcategory] = useState([])
+  
 
   const affichcategory = async() => {
     const datarepas = await axios.get(`${baseURL}/findcategory`)
@@ -19,9 +20,13 @@ function categoryManager() {
      console.log("error", err)
     }
    }
-   useEffect(() => {
-    affichcategory();
-  }, [])
+
+
+    
+            useEffect(() => {
+              affichcategory();
+            }, [])
+
   return (
     <div>
       <div className="p-3 font-bold text-3xl">
