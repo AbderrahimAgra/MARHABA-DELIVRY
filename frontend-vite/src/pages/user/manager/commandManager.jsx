@@ -6,10 +6,10 @@ import Input from "../../../components/Input";
 function CommandManager() {
   return (
     <div>
-      <div className="p-3 font-bold text-3xl">
+      <div className={`${open ? 'ml-72': ''} p-3 font-bold text-3xl`}>
         <h1>List Command</h1>
       </div>
-      <div className="overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg">
+      <div className={`${open ? 'ml-72': ''} overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
