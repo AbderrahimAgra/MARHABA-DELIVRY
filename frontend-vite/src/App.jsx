@@ -46,22 +46,19 @@ function App() {
         <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
         {/* { Client } */}
         {/* <Route element={<ProtectedRoutes />}> */}
-          <Route path='/dashboard/client' element={<Dashboard />}>
-            <Route path='' element={<DashbordClient />} />
-            <Route path='setting' element={<SettingClient />} />
-          </Route>
+        {/* <Route path='/dashboard/client' element={<Dashboard />}> */}
+            <Route path='/dashboard/client' element={<DashbordClient />} />
+            <Route path='/dashboard/client/setting' element={<SettingClient />} />
+          {/* </Route> */}
         {/* </Route> */}
         {/* { Manager } */}
-        {/* <Route element={<ProtectedRoutes />}> */}
-          <Route path='/dashboard/manager' element={<Dashboard />}>
-            <Route path='' element={<DashbordManager />} />
-            <Route path='repas' element={<RepasManager />} />
-            <Route path='category' element={<CategoryManager />} />
-            <Route path='command' element={<CommandManager />} />
-            <Route path='livreurs' element={<LivreursManager />} />
-            <Route path='clients' element={<ClientsManager />} />
-            <Route path='setting' element={<SettingManager />} />
-          </Route>
+        <Route path='/dashboard/manager' element={<DashbordManager />} />
+        <Route path='/dashboard/manager/repas' element={<RepasManager />} />
+        <Route path='/dashboard/manager/category' element={<CategoryManager />} />
+        <Route path='/dashboard/manager/command' element={<CommandManager />} />
+        <Route path='/dashboard/manager/livreurs' element={<LivreursManager />} />
+        <Route path='/dashboard/manager/clients' element={<ClientsManager />} />
+        <Route path='/dashboard/manager/setting' element={<SettingManager />} /> 
         {/* </Route> */}
       </Routes>
     </BrowserRouter>
