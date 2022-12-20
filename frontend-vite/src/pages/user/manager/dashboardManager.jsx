@@ -10,6 +10,8 @@ import axios from "axios";
 
 const baseURL = 'http://localhost:5500/api/auth'
 
+const baseURL = 'http://localhost:5500/api/auth'
+
 function Manager() {
 
   function logout() {
