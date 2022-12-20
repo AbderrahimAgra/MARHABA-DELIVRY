@@ -1,6 +1,7 @@
 import { React, useState } from "react"
 import { Link } from "react-router-dom";
 import { AiFillSetting, AiOutlineDashboard, AiOutlineLogout } from 'react-icons/ai'
+import { BsFillCartCheckFill } from 'react-icons/bs'
 import { GiHotMeal } from 'react-icons/gi'
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
@@ -60,6 +61,9 @@ function SettingClient() {
               <img src="../../../public/assets/logo.png" className="h-6 mr-3 sm:h-9" alt="Marhaba Logo" />
             </a>
             <div class="flex items-center md:order-2">
+              <div>
+                <BsFillCartCheckFill className='mr-2' />
+              </div>
               <button type="button" class="flex mr-3 text-sm  rounded-full md:mr-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <img className="w-10 h-10 rounded-full bg-white" src="../../../public/assets/profil.png" alt="pPofil photo" />
               </button>

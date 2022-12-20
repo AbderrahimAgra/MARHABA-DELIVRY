@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineDashboard, AiFillSetting, AiOutlineLogout } from 'react-icons/ai';
+import { BsFillCartCheckFill } from 'react-icons/bs';
 import { GiHotMeal } from 'react-icons/gi';
 import axios from "axios";
 
@@ -58,13 +59,16 @@ function Client() {
               <img src="../../../public/assets/logo.png" className="h-6 mr-3 sm:h-9" alt="Marhaba Logo" />
             </a>
             <div class="flex items-center md:order-2">
+              <div>
+                <BsFillCartCheckFill className='mr-2' />
+              </div>
               <button type="button" class="flex mr-3 text-sm  rounded-full md:mr-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                <img className="w-10 h-10 rounded-full bg-white" src="../../../public/assets/profil.png" alt="pPofil photo" />
+                <img className="w-10 h-10 rounded-full bg-white" src="../../../public/assets/profil.png" alt="Pofil photo" />
               </button>
             </div>
           </div>
         </nav>
-        
+
         <div className={`${open ? 'ml-72' : 'ml-20'} mb-4 duration-200 flex flex-wrap justify-center`}>
           <div className="w-80  max-w-sm mb-4 bg-white rounded-lg shadow-md mt-4 drop-shadow-2xl mr-6">
             <img className="p-8 rounded-t-lg " src="../../../../public/assets/plat1.png" alt="product image" />
