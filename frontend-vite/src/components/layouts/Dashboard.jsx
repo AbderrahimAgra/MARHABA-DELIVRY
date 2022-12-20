@@ -108,6 +108,7 @@ const Dashboard = () => {
                   <img className="w-10 h-10 rounded-full bg-white" src="../../../public/assets/profil.png" alt="pPofil photo" />
                 </button>
               </div>
+              </div>
             </nav>
 
             {<Outlet />}

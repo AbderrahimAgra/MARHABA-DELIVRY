@@ -8,6 +8,7 @@ import { FiUsers } from 'react-icons/fi';
 import { TbTruckDelivery } from 'react-icons/tb';
 import axios from "axios";
 
+const baseURL = 'http://localhost:5500/api/auth'
 
 const baseURL = 'http://localhost:5500/api/auth'
 

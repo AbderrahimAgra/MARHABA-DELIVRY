@@ -122,6 +122,7 @@ function ClientsManager() {
             </tbody>
           </table>
         </div>
+        </div>
     </div>
   )
 }

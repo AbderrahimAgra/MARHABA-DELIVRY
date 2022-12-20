@@ -45,6 +45,17 @@ function categoryManager() {
     { title: "Logout", icon: <AiOutlineLogout />, route: '/login' },
   ]
 
+  const MenusManager = [
+    { title: "Dashboad", icon: <AiOutlineDashboard />, route: '/dashboard/manager' },
+    { title: "Repas", icon: <GiMeal />, gap: true, route: '/dashboard/manager/repas' },
+    { title: "Category", icon: <BiCategoryAlt />, route: '/dashboard/manager/category' },
+    { title: "Commands", icon: <BiCommand />, route: '/dashboard/manager/command' },
+    { title: "Livreurs", icon: <TbTruckDelivery />, route: '/dashboard/manager/livreurs' },
+    { title: "Clients", icon: <FiUsers />, route: '/dashboard/manager/clients' },
+    { title: "Setting", icon: <AiFillSetting />, gap: true, route: '/dashboard/manager/setting' },
+    { title: "Logout", icon: <AiOutlineLogout />, route: '/login' },
+  ]
+
   const affichcategory = async () => {
     const datarepas = await axios.get(`${baseURL}/findcategory`)
 

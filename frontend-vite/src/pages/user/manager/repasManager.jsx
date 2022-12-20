@@ -5,7 +5,6 @@ import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle, AiFillSetting, AiOutlineDashboard, AiOutlineLogout } from 'react-icons/ai'
 import { GiMeal } from 'react-icons/gi';
 import { BiCategoryAlt, BiCommand } from 'react-icons/bi';
-import { BsFillCartCheckFill } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
 import { TbTruckDelivery } from 'react-icons/tb';
 import Input from "../../../components/Input";
@@ -68,9 +67,7 @@ function repasManager() {
       })
 
   }
-
-
-   useEffect(() => {
+useEffect(() => {
     affichagrepas();
   }, [])
 
