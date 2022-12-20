@@ -5,7 +5,6 @@ import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineDashboard, AiFillSetting, AiOutlineLogout, AiOutlineCloseCircle } from 'react-icons/ai';
 import { GiMeal } from 'react-icons/gi';
 import { BiCategoryAlt, BiCommand } from 'react-icons/bi';
-import { BsFillCartCheckFill } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
 import { TbTruckDelivery } from 'react-icons/tb';
 import Button from '../../../components/Button';
@@ -32,18 +31,7 @@ function categoryManager() {
   const [open, setOpen] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [category, setcategory] = useState([])
-  
 
-  const MenusManager = [
-    { title: "Dashboad", icon: <AiOutlineDashboard />, route: '/dashboard/manager' },
-    { title: "Repas", icon: <GiMeal />, gap: true, route: '/dashboard/manager/repas' },
-    { title: "Category", icon: <BiCategoryAlt />, route: '/dashboard/manager/category' },
-    { title: "Commands", icon: <BiCommand />, route: '/dashboard/manager/command' },
-    { title: "Livreurs", icon: <TbTruckDelivery />, route: '/dashboard/manager/livreurs' },
-    { title: "Clients", icon: <FiUsers />, route: '/dashboard/manager/clients' },
-    { title: "Setting", icon: <AiFillSetting />, gap: true, route: '/dashboard/manager/setting' },
-    { title: "Logout", icon: <AiOutlineLogout />, route: '/login' },
-  ]
 
   const MenusManager = [
     { title: "Dashboad", icon: <AiOutlineDashboard />, route: '/dashboard/manager' },
@@ -65,9 +53,9 @@ function categoryManager() {
     } else {
       console.log("error", err)
     }
-   }
+  }
 
-  
+
   useEffect(() => {
     affichcategory();
   }, [])
