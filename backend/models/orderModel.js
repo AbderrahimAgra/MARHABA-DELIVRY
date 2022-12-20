@@ -1,18 +1,21 @@
 const mongoose = require('mongoose')
 
 const orderSchema = mongoose.Schema({
-  client: [
-    {
+
+  client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
-    }
-  ],
-  delivred: [
+  },
+  meals: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "meals"
     }
   ],
+  livereur: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+  },
   address: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -24,12 +27,10 @@ const orderSchema = mongoose.Schema({
     required: true,
     trim: true
   },
-  status: [
-    {
+  status: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Status"
-    }
-  ],
+  },
   date: {
     type: Date,
     default: Date.now

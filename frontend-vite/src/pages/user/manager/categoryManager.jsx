@@ -32,6 +32,7 @@ function categoryManager() {
   const [open, setOpen] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [category, setcategory] = useState([])
+  
 
   const MenusManager = [
     { title: "Dashboad", icon: <AiOutlineDashboard />, route: '/dashboard/manager' },
@@ -53,7 +54,9 @@ function categoryManager() {
     } else {
       console.log("error", err)
     }
-  }
+   }
+
+  
   useEffect(() => {
     affichcategory();
   }, [])
