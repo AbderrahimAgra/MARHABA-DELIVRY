@@ -2,7 +2,6 @@ import { React, useState, useEffect } from 'react'
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { TbTruckDelivery } from 'react-icons/tb';
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import axios from "axios";
