@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
       // Password Hash 
       const salt = await bcrypt.genSalt(10)
       const password_Hash = await bcrypt.hash(password, salt)
-      const role = "638807a430f9616bb0b039c9"
+      const role = "638f45b410a60d0c0019353a"
 
       const user = await User.create({
         first_name,
