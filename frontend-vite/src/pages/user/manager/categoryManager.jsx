@@ -2,11 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
-import { AiOutlineDashboard, AiFillSetting, AiOutlineLogout, AiOutlineCloseCircle } from 'react-icons/ai';
-import { GiMeal } from 'react-icons/gi';
-import { BiCategoryAlt, BiCommand } from 'react-icons/bi';
-import { FiUsers } from 'react-icons/fi';
-import { TbTruckDelivery } from 'react-icons/tb';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import axios from 'axios'
@@ -15,21 +11,6 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 const baseURLLogout = 'http://localhost:5500/api/auth'
 
 function categoryManager() {
-
-  const navigate = useNavigate()
-
-  function logout() {
-    axios.get(`${baseURLLogout}/logout`)
-      .then((res) => {
-        if (res.data) {
-          localStorage.clear()
-          navigate('/login')
-        }
-      })
-      .catch(err =>
-        console.log(err)
-      )
-  }
 
   const [showModal, setShowModal] = useState(false)
   const [category, setcategory] = useState([])

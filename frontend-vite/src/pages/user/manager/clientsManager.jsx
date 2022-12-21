@@ -7,9 +7,7 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 
 function ClientsManager() {
 
-
   const [clients, setClients] = useState([])
-
 
   const affichageclient = async () => {
     const dataclient = await axios.get(`${baseURL}/listclient`)
