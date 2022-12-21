@@ -12,8 +12,6 @@ import Axios from 'axios';
 
 const baseURL = 'http://localhost:5500/api/auth'
 
-// const navigate = useNavigate()
-
 function logout() {
   Axios.get(`${baseURL}/logout`)
     .then((res) => {
