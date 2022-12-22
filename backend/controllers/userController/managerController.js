@@ -198,6 +198,7 @@ const GetAllProduct = async (req, res) => {
     throw new Error(error);
   }
 };
+
 const updateproduct = async (req, res) => {
   // const {id} = req.params
   // const updateprod = {
@@ -216,7 +217,6 @@ const updateproduct = async (req, res) => {
   // })
   // const finddata = awiat Meal.findById({_id:id})
   const { id } = req.params
-  console.log(req.params)
   const UpdatedProduct = {
     name: req.body.name,
     description: req.body.description,
@@ -225,7 +225,7 @@ const updateproduct = async (req, res) => {
     images: req.file.filename
 
   };
-  console.log(req.body.name)
+  // console.log(req.body.name)
 
   try {
     await Meal.findByIdAndUpdate(
