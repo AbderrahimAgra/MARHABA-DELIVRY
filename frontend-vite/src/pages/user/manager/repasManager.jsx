@@ -6,43 +6,103 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import axios from "axios";
 
+
 const baseURL = 'http://localhost:5500/api/user/manager'
+const baseURLLogout = 'http://localhost:5500/api/auth'
+const imagePath = 'http://localhost:5500/images'
 
 
 function repasManager() {
 
-  const [showModal, setShowModal] = useState(false)
-  const [repas, setrepas] = useState([])
+  const [data, setData] = useState()
 
-  const affichagrepas = async () => {
-
-    const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
-
-    if (datarepas) {
-      setrepas(datarepas.data)
-    } else {
-      console.log("error", err)
-    }
+  const handleChange = (e) => {
+      setData({    
+        ...data,
+        [e.target.name]: e.target.value}
+      )
   }
 
-  const deleted = async (id) => {
-    await axios.delete(`${baseURL}/deleteProduct/${id}`)
-      .then((e) => {
-        console.log("success")
+  const [img, setImg] = useState()  
+  
+  function addMeal (e) {
+
+    e.preventDefault()
+
+    const data2 = new FormData()
+
+    data2.append('name', data.name)
+    data2.append('description', data.description)
+    data2.append('price', data.price)
+    data2.append('category', data.category)
+    data2.append('images', img)
+
+    axios.post(`${baseURL}/implodProduct`, data2)
+      .then((response) => {
+        console.log(response)
         window.location.reload(false)
       })
       .catch((err) => {
-        console.log("error", err)
+        console.log(err)
       })
 
   }
+
+  
+  const [open, setOpen] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [repas, setrepas] = useState([])
+  const [category, setcategory] = useState([])
+
+  
+  const affichagrepas = async () => {
+    
+          const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
+          
+          if (datarepas) {
+            setrepas(datarepas.data)
+          } else {
+            console.log("error", err)
+          }
+        }
+        const affichcategory = async () => {
+          const datarepas = await axios.get(`${baseURL}/findcategory`)
+          
+          
+          if (datarepas) {
+            setcategory(datarepas.data)
+            console.log(datarepas.data)
+          } else {
+            console.log("error", err)
+          }
+  }
+  
+  
+  const deleted = async (id) => {
+    await axios.delete(`${baseURL}/deleteProduct/${id}`)
+    .then((e) => {
+      console.log("success")
+      window.location.reload(false)
+    })
+    .catch((err) => {
+      console.log("error", err)
+    })
+    
+  }
   useEffect(() => {
-    affichagrepas();
+    affichagrepas()
+    affichcategory()
   }, [])
 
-
+  function getCategory (category1) {
+    let a = category.filter(cat => cat._id == category1)
+    return a[0]?.name
+  }
+  
+  
   return (
     <div>
+
       <div className={`${open ? 'ml-72' : 'ml-20'} duration-300 m-3`}>
         <button type="button" onClick={() => setShowModal(true)} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
       </div>
@@ -59,33 +119,34 @@ function repasManager() {
               <th scope="col" class="py-3 px-6"></th>
             </tr>
           </thead>
-          <tbody>
-            {repas.map((reppa, index) => (
-              <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {reppa.name}
-                </th>
-                <td class="py-4 px-6">
-                  {reppa.description}
-                </td>
-                <td class="py-4 px-6">
-                  image
-                </td>
-                <td class="py-4 px-6">
-                  repas
-                </td>
-                <td class="py-4 px-6">
-                  {reppa.price} prix
-                </td>
-                <td class="py-4 px-6 flex text-right">
-                  <button className="text-black text-xl mr-3"><FiEdit /></button>
-                  <button type='button' onClick={(e) => { e.preventDefault(); deleted(reppa._id) }} className="text-black text-2xl"><MdDeleteSweep /></button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            <tbody>
+              {repas.map((reppa, index) => (
+                <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {reppa.name}
+                  </th>
+                  <td class="py-4 px-6">
+                    {reppa.description}
+                  </td>
+                  <td class="py-4 px-6">
+                    <img src={ `${imagePath}/${reppa.images}` } width="50px" alt="" />
+                  </td>
+                  <td class="py-4 px-6">
+                    { getCategory(reppa.category) }
+                  </td>
+                  <td class="py-4 px-6">
+                    {reppa.price} prix
+                  </td>
+                  <td class="py-4 px-6 flex text-right">
+                    <button className="text-black text-xl mr-3"><FiEdit /></button>
+                    <button type='button' onClick={(e) => { e.preventDefault(); deleted(reppa._id) }} className="text-black text-2xl"><MdDeleteSweep /></button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      
 
 
       {showModal ? (
@@ -107,24 +168,30 @@ function repasManager() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form className="my-4 text-slate-500 text-lg leading-relaxed">
+                  <form onSubmit={addMeal}className="my-4 text-slate-500 text-lg leading-relaxed" encType='multipart/form-data'>
                     <div className="flex flex-col">
                       <div className="mb-2">
-                        <Input type="text" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Repas" required />
+                        <Input type="text" name="name" id="name" onChange={handleChange} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Repas" required />
                       </div>
                       <div className="mb-2">
-                        <Input type="text" name="description" id="description" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Description" required />
+                        <Input type="text" name="description" onChange={handleChange} id="description" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Description" required />
                       </div>
                       <div className="mb-2">
-                        <Input type="text" name="price" id="price" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Price" required />
+                        <Input type="text" name="price" onChange={handleChange} id="price" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Price" required />
                       </div>
                       <div className="mb-2">
-                        <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <select id="underline_select" onChange={handleChange} name="category" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                          
+
                           <option selected>Choose a Category</option>
-                          <option value="">Tacos</option>
-                          <option value="">Pizza</option>
-                          <option value="">Sandwich</option>
+
+                          {category.map((cate) => (
+
+                            <option value={cate._id}>{cate.name}</option>
+                          
+                          ))}
                         </select>
+                        
                       </div>
                       <div className="mb-2">
                         <div class="flex items-center justify-center w-72">
@@ -134,14 +201,14 @@ function repasManager() {
                               <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                               <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                             </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
+                            <input id="dropzone-file" type="file" name='images' onChange={(e) => { setImg(e.target.files[0]) }} class="hidden" />
                           </label>
                         </div>
                       </div>
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
                       <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => setShowModal(false)} btn='Close' />
-                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
+                      <Button type='submit' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
                     </div>
                   </form>
                 </div>
@@ -154,8 +221,7 @@ function repasManager() {
       }
 
 
-
-    </div >
+</div>
   )
 }
 
