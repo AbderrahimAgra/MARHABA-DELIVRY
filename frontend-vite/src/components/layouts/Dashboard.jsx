@@ -6,6 +6,7 @@ import { BiCategoryAlt, BiCommand, BiAddToQueue } from 'react-icons/bi';
 import { BsFillCartCheckFill } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
 import { TbTruckDelivery } from 'react-icons/tb';
+import Button from '../Button';
 
 import Axios from 'axios';
 
@@ -16,14 +17,13 @@ function logout() {
     .then((res) => {
       if (res.data) {
         localStorage.clear()
+        window.location = '/login'
       }
-
     })
     .catch(err =>
       console.log(err)
     )
 }
-
 
 const Dashboard = () => {
   const [open, setOpen] = useState(true)
@@ -39,7 +39,6 @@ const Dashboard = () => {
     { title: "Sandwich", icon: GiHotMeal, route: '/' },
     { title: "Desserts", icon: GiHotMeal, route: '/' },
     { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
-    { title: "Logout", icon: AiOutlineLogout, route: '/login' },
   ]
 
   const MenusManager = [
@@ -50,7 +49,6 @@ const Dashboard = () => {
     { title: "Livreurs", icon: TbTruckDelivery, route: 'livreurs' },
     { title: "Clients", icon: FiUsers, route: 'clients' },
     { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
-    { title: "Logout", icon: AiOutlineLogout, route: '/login' },
   ]
 
   return (
@@ -72,9 +70,12 @@ const Dashboard = () => {
               {MenusManager.map((menu, index) => (
                 <li key={index} className={`text-gray-300 text-sm flex w-11 items-center gap-x-4 cursor-pointer p-2 hover:bg-zinc-800 rounded-md ${menu.gap ? "mt-12" : " "}`}>
                   <div className="text-white">{React.createElement(menu?.icon, { size: "25" })}</div>
-                  <Link to={menu.route} onClick={logout}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
+                  <Link to={menu.route}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
                 </li>
               ))}
+              <div className="flex items-center">
+                <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class="duration-200 text-lg text-white" btn='Logout' />
+              </div>
             </ul>)
             :
             role === 'client' ? (
@@ -82,43 +83,45 @@ const Dashboard = () => {
                 {MenusClient.map((menu, index) => (
                   <li key={index} className={`text-gray-300 text-sm flex w-11 items-center gap-x-4 cursor-pointer p-2 hover:bg-zinc-800 rounded-md ${menu.gap ? "mt-12" : " "}`}>
                     <div className="text-white">{React.createElement(menu?.icon, { size: "25" })}</div>
-                    <Link to={menu.route} onClick={logout}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
+                    <Link to={menu.route}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
                   </li>
                 ))}
+                <div className="flex items-center">
+                  <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class={`${!open && 'hidden'} duration-200 text-lg text-white`} btn='Logout' />
+                </div>
               </ul>
             ) : null}
 
         </div>
 
         <div className="p-3 px-5 text-2xl font-semibold flex-1 h-screen">
-          <nav className={`${open ? 'ml-72' : ''} bg-black ml-20 text-white border-gray-200 px-2 rounded-xl sm:px-4 py-2.5 dark:bg-gray-900`}>
-
+          <nav className={`${open ? 'ml-72' : 'ml-20'} duration-300 bg-black ml-20 text-white border-gray-200 px-2 rounded-xl sm:px-4 py-2.5 dark:bg-gray-900`}>
             <div className="container flex flex-wrap items-center justify-between mx-auto">
               <a href="#" className="flex items-center">
                 <img src="../../../public/assets/logo.png" className="h-6 mr-3 sm:h-9" alt="Marhaba Logo" />
               </a>
               <div class="flex items-center md:order-2">
-                { role === 'client' ?
-                <div>
-                  <BsFillCartCheckFill className='mr-2' />
-                </div>
-                : null
+                {role === 'client' ?
+                  <div>
+                    <BsFillCartCheckFill className='mr-2' />
+                  </div>
+                  : null
                 }
                 <button type="button" class="flex mr-3 text-sm  rounded-full md:mr-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                   <img className="w-10 h-10 rounded-full bg-white" src="../../../public/assets/profil.png" alt="pPofil photo" />
                 </button>
               </div>
-              </div>
-            </nav>
+            </div>
+          </nav>
 
-            {<Outlet />}
-
-          </div>
+          {<Outlet />}
 
         </div>
 
-      </div >
-    )
-  }
-  
-  export default Dashboard
+      </div>
+
+    </div >
+  )
+}
+
+export default Dashboard

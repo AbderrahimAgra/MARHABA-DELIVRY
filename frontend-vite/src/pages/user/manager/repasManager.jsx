@@ -1,152 +1,260 @@
 import { React, useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md'
-import { AiOutlineCloseCircle, AiFillSetting, AiOutlineDashboard, AiOutlineLogout } from 'react-icons/ai'
-import { GiMeal } from 'react-icons/gi';
-import { BiCategoryAlt, BiCommand } from 'react-icons/bi';
-import { FiUsers } from 'react-icons/fi';
-import { TbTruckDelivery } from 'react-icons/tb';
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import axios from "axios";
 
+
 const baseURL = 'http://localhost:5500/api/user/manager'
 const baseURLLogout = 'http://localhost:5500/api/auth'
+const imagePath = 'http://localhost:5500/images'
 
 
 function repasManager() {
 
-  function logout() {
-    axios.get(`${baseURLLogout}/logout`)
-      .then((res) => {
-        if (res.data) {
-          localStorage.clear()
-        }
+  const [data, setData] = useState()
+  const [showModal, setShowModal] = useState(false)
+  const [repas, setrepas] = useState([])
+  const [edite, setEdite] = useState(false)
+  const [editRepas, setEditRepas] = useState({ name: '', description: '', img: '', price: '', category: '' })
+  const [category, setcategory] = useState([])
+  // const [updateRepa, setUpdateRepa] = useState({})
+
+  const updateRepas = (e) => {
+    const valeur = e.target.value
+    setEditRepas({ ...editRepas, [e.target.name]: valeur })
+  }
+
+  // const onSubmit = () => {
+  const edited = async (id) => {
+    await axios.put(`${baseURL}/updateproduct/${id}`)
+      .then(res => {
+        console.log("success")
       })
-      .catch(err =>
+      .catch((err) => {
+        console.log("error", err)
+      })
+  }
+  const [data, setData] = useState()
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value
+    }
+    )
+  }
+
+  const [img, setImg] = useState()
+
+  function addMeal(e) {
+
+    e.preventDefault()
+
+    const data2 = new FormData()
+
+    data2.append('name', data.name)
+    data2.append('description', data.description)
+    data2.append('price', data.price)
+    data2.append('category', data.category)
+    data2.append('images', img)
+
+    axios.post(`${baseURL}/implodProduct`, data2)
+      .then((response) => {
+        console.log(response)
+        window.location.reload(false)
+      })
+      .catch((err) => {
         console.log(err)
+      })
+  }
+
+
+  const handleChange = (e) => {
+      setData({    
+        ...data,
+        [e.target.name]: e.target.value}
       )
   }
 
-  const [open, setOpen] = useState(true)
-  const [showModal, setShowModal] = useState(false)
-  const [repas, setrepas] = useState([])
-
-  const MenusManager = [
-    { title: "Dashboad", icon: <AiOutlineDashboard />, route: '/dashboard/manager' },
-    { title: "Repas", icon: <GiMeal />, gap: true, route: '/dashboard/manager/repas' },
-    { title: "Category", icon: <BiCategoryAlt />, route: '/dashboard/manager/category' },
-    { title: "Commands", icon: <BiCommand />, route: '/dashboard/manager/command' },
-    { title: "Livreurs", icon: <TbTruckDelivery />, route: '/dashboard/manager/livreurs' },
-    { title: "Clients", icon: <FiUsers />, route: '/dashboard/manager/clients' },
-    { title: "Setting", icon: <AiFillSetting />, gap: true, route: '/dashboard/manager/setting' },
-    { title: "Logout", icon: <AiOutlineLogout />, route: '/login' },
-  ]
-
-
-  const affichagrepas = async () => {
-
-    const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
-
+  const [img, setImg] = useState()  
+  
+  function addMeal (e) {
+    e.preventDefault()
     if (datarepas) {
       setrepas(datarepas.data)
     } else {
       console.log("error", err)
     }
   }
+  const affichcategory = async () => {
+    const datarepas = await axios.get(`${baseURL}/findcategory`)
 
-  const deleted = async (id) => {
-    await axios.delete(`${baseURL}/deleteProduct/${id}`)
-      .then((e) => {
-        console.log("success")
+
+    if (datarepas) {
+      setcategory(datarepas.data)
+      console.log(datarepas.data)
+    } else {
+      console.log("error", err)
+    }
+  }
+
+
+    const data2 = new FormData()
+
+    data2.append('name', data.name)
+    data2.append('description', data.description)
+    data2.append('price', data.price)
+    data2.append('category', data.category)
+    data2.append('images', img)
+
+    axios.post(`${baseURL}/implodProduct`, data2)
+      .then((response) => {
+        console.log(response)
         window.location.reload(false)
       })
       .catch((err) => {
-        console.log("error", err)
+        console.log(err)
       })
 
   }
-useEffect(() => {
-    affichagrepas();
+
+  
+  const [open, setOpen] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [repas, setrepas] = useState([])
+  const [category, setcategory] = useState([])
+
+  
+  const affichagrepas = async () => {
+    
+        const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
+        
+        if (datarepas) {
+          setrepas(datarepas.data)
+        } else {
+          console.log("error", err)
+        }
+      }
+      const affichcategory = async () => {
+        const datarepas = await axios.get(`${baseURL}/findcategory`)
+        
+        
+        if (datarepas) {
+          setcategory(datarepas.data)
+          console.log(datarepas.data)
+        } else {
+          console.log("error", err)
+        }
+  }
+  
+  
+  const deleted = async (id) => {
+    await axios.delete(`${baseURL}/deleteProduct/${id}`)
+    .then((e) => {
+      console.log("success")
+      window.location.reload(false)
+    })
+    .catch((err) => {
+      console.log("error", err)
+    })
+    
+  }
+  useEffect(() => {
+    affichagrepas()
+    affichcategory()
   }, [])
 
-
+  function getCategory (category1) {
+    let a = category.filter(cat => cat._id == category1)
+    return a[0]?.name
+  }
+  
   return (
     <div>
-      <div className={`${open ? 'w-72' : 'w-20'} fixed top-0 duration-300 px-5 min-h-screen  bg-dark`}>
-        <img src="../../../../public/assets/left-arrow.png" className={`bg-white absolute cursor-pointer rounded-full -right-3 top-9 w-8 border-4 p-1 border-dark ${!open && "rotate-180"}`} onClick={() => setOpen(!open)} />
-        <div className="flex gap-x-4 items-center justify-center ">
-          <img src="../../../../public/assets/logo.png" className={`cursor-pointer w-16`} />
-        </div>
-        <ul className="pt-6">
-          {MenusManager.map((menu, index) => (
-            <li key={index} className={`text-gray-300 text-sm flex w-11 items-center gap-x-4 cursor-pointer p-2 hover:bg-zinc-800 rounded-md ${menu.gap ? "mt-12" : " "}`}>
-              <div className="text-white text-xl">{menu.icon}</div>
-              <Link to={menu.route} onClick={logout}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
-            </li>
-          ))}
-        </ul>
+
+      <div className={`${open ? 'ml-72' : 'ml-20'} duration-300 m-3`}>
+        <button type="button" onClick={() => {setShowModal(true); setEdite(false)}} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
+        {
+          edite ?
+            <form className={`duration-300 p-4 pt-9`}>
+              <div class="relative z-0 mb-6 w-full group">
+                <Input type="text" name="name" id="name" value={editRepas.name} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Repas" required />
+              </div>
+              <div class="relative z-0 mb-6 w-full group">
+                <Input type="text" name="description" id="description" value={editRepas.description} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Description" required />
+              </div>
+              <div class="relative z-0 mb-6 w-full group">
+                <Input type="text" name="price" id="price" value={editRepas.price} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Image" required />
+              </div>
+              <div className="mb-2">
+                <select id="underline_select" class="block py-2 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                  <option selected>Choose a Category</option>
+                  <option value="">Tacos</option>
+                  <option value="">Pizza</option>
+                  <option value="">Sandwich</option>
+                </select>
+              </div>
+              <div class="flex items-center justify-center w-80">
+                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-42 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                  </div>
+                  <input id="dropzone-file" type="file" class="hidden" />
+                </label>
+              </div>
+              <Button type="submit" onclick={() => { setEdite(false) }} class="text-white bg-black hover:bg-neutral-800 mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
+              <Button type="button" onclick={(e) => { e.preventDefault(); edited(editRepas._id) }} class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Update" />
+            </form>
+            : null
+        }
       </div>
 
-      <div className="p-3 px-5 text-2xl font-semibold flex-1 h-screen">
-        <nav className={`${open ? 'ml-72' : 'ml-20'} duration-300 bg-black ml-20 text-white border-gray-200 px-2 rounded-xl sm:px-4 py-2.5 dark:bg-gray-900`}>
-          <div className="container flex flex-wrap items-center justify-between mx-auto">
-            <a href="#" className="flex items-center">
-              <img src="../../../public/assets/logo.png" className="h-6 mr-3 sm:h-9" alt="Marhaba Logo" />
-            </a>
-            <div class="flex items-center md:order-2">
-              <button type="button" class="flex mr-3 text-sm  rounded-full md:mr-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                <img className="w-10 h-10 rounded-full bg-white" src="../../../public/assets/profil.png" alt="pPofil photo" />
-              </button>
-            </div>
-          </div>
-        </nav>
-
-        <div className={`${open ? 'ml-72' : 'ml-20'} duration-300 m-3`}>
-          <button type="button" onClick={() => setShowModal(true)} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
-        </div>
-
-        <div class={`${open ? 'ml-72' : 'ml-20'} duration-300 overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
-          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" class="py-3 px-6">Name</th>
-                <th scope="col" class="py-3 px-6">Description</th>
-                <th scope="col" class="py-3 px-6">image</th>
-                <th scope="col" class="py-3 px-6">Category</th>
-                <th scope="col" class="py-3 px-6">Price</th>
-                <th scope="col" class="py-3 px-6"></th>
+      <div class={`${open ? 'ml-72' : 'ml-20'}  duration-300 overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
+        <table class="w-full text-sm text-left mb-5 text-gray-500  dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="py-3 px-6">Name</th>
+              <th scope="col" class="py-3 px-6">Description</th>
+              <th scope="col" class="py-3 px-6">image</th>
+              <th scope="col" class="py-3 px-6">Category</th>
+              <th scope="col" class="py-3 px-6">Price</th>
+              <th scope="col" class="py-3 px-6"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {repas.map((reppa, index) => (
+              <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {reppa.name}
+                </th>
+                <td class="py-4 px-6">
+                  {reppa.description}
+                </td>
+                <td class="py-4 px-6">
+                  <img src={`${imagePath}/${reppa.images}`} width="50px" alt="" />
+                </td>
+                <td class="py-4 px-6">
+                  {getCategory(reppa.category)}
+                </td>
+                <td class="py-4 px-6">
+                  {reppa.price} prix
+                </td>
+                <td class="py-4 px-6 flex text-right">
+                  <button className="text-black text-xl mr-3" onClick={() => {setEdite(true); setEditRepas(reppa)}}><FiEdit /></button>
+                  <button type='button' onClick={(e) => { e.preventDefault(); deleted(reppa._id) }} className="text-black text-2xl"><MdDeleteSweep /></button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {repas.map((reppa, index) => (
-                <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {reppa.name}
-                  </th>
-                  <td class="py-4 px-6">
-                    {reppa.description}
-                  </td>
-                  <td class="py-4 px-6">
-                    image
-                  </td>
-                  <td class="py-4 px-6">
-                    repas
-                  </td>
-                  <td class="py-4 px-6">
-                    {reppa.price} prix
-                  </td>
-                  <td class="py-4 px-6 flex text-right">
-                    <button className="text-black text-xl mr-3"><FiEdit /></button>
-                    <button type='button' onClick={(e) => { e.preventDefault(); deleted(reppa._id) }} className="text-black text-2xl"><MdDeleteSweep /></button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
+
+
 
       {showModal ? (
         <>
@@ -167,24 +275,30 @@ useEffect(() => {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form className="my-4 text-slate-500 text-lg leading-relaxed">
+                  <form onSubmit={addMeal}className="my-4 text-slate-500 text-lg leading-relaxed" encType='multipart/form-data'>
                     <div className="flex flex-col">
                       <div className="mb-2">
-                        <Input type="text" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Repas" required />
+                        <Input type="text" name="name" id="name" onChange={handleChange} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Repas" required />
                       </div>
                       <div className="mb-2">
-                        <Input type="text" name="description" id="description" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Description" required />
+                        <Input type="text" name="description" onChange={handleChange} id="description" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Description" required />
                       </div>
                       <div className="mb-2">
-                        <Input type="text" name="price" id="price" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Price" required />
+                        <Input type="text" name="price" onChange={handleChange} id="price" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Price" required />
                       </div>
                       <div className="mb-2">
-                        <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <select id="underline_select" onChange={handleChange} name="category" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                          
+
                           <option selected>Choose a Category</option>
-                          <option value="">Tacos</option>
-                          <option value="">Pizza</option>
-                          <option value="">Sandwich</option>
+
+                          {category.map((cate) => (
+
+                            <option value={cate._id}>{cate.name}</option>
+                          
+                          ))}
                         </select>
+                        
                       </div>
                       <div className="mb-2">
                         <div class="flex items-center justify-center w-72">
@@ -194,14 +308,14 @@ useEffect(() => {
                               <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                               <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                             </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
+                            <input id="dropzone-file" type="file" name='images' onChange={(e) => { setImg(e.target.files[0]) }} class="hidden" />
                           </label>
                         </div>
                       </div>
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
                       <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => setShowModal(false)} btn='Close' />
-                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
+                      <Button type='submit' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
                     </div>
                   </form>
                 </div>
@@ -212,10 +326,7 @@ useEffect(() => {
         </>
       ) : null
       }
-
-
-
-    </div >
+</div>
   )
 }
 
