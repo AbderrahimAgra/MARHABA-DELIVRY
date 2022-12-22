@@ -14,6 +14,7 @@ const imagePath = 'http://localhost:5500/images'
 
 function repasManager() {
 
+  const [data, setData] = useState()
   const [showModal, setShowModal] = useState(false)
   const [repas, setrepas] = useState([])
   const [edite, setEdite] = useState(false)
@@ -71,10 +72,17 @@ function repasManager() {
   }
 
 
-  const affichagrepas = async () => {
+  const handleChange = (e) => {
+      setData({    
+        ...data,
+        [e.target.name]: e.target.value}
+      )
+  }
 
-    const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
-
+  const [img, setImg] = useState()  
+  
+  function addMeal (e) {
+    e.preventDefault()
     if (datarepas) {
       setrepas(datarepas.data)
     } else {
@@ -94,28 +102,76 @@ function repasManager() {
   }
 
 
-  const deleted = async (id) => {
-    await axios.delete(`${baseURL}/deleteProduct/${id}`)
-      .then((e) => {
-        console.log("success")
+    const data2 = new FormData()
+
+    data2.append('name', data.name)
+    data2.append('description', data.description)
+    data2.append('price', data.price)
+    data2.append('category', data.category)
+    data2.append('images', img)
+
+    axios.post(`${baseURL}/implodProduct`, data2)
+      .then((response) => {
+        console.log(response)
         window.location.reload(false)
       })
       .catch((err) => {
-        console.log("error", err)
+        console.log(err)
       })
 
+  }
+
+  
+  const [open, setOpen] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [repas, setrepas] = useState([])
+  const [category, setcategory] = useState([])
+
+  
+  const affichagrepas = async () => {
+    
+        const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
+        
+        if (datarepas) {
+          setrepas(datarepas.data)
+        } else {
+          console.log("error", err)
+        }
+      }
+      const affichcategory = async () => {
+        const datarepas = await axios.get(`${baseURL}/findcategory`)
+        
+        
+        if (datarepas) {
+          setcategory(datarepas.data)
+          console.log(datarepas.data)
+        } else {
+          console.log("error", err)
+        }
+  }
+  
+  
+  const deleted = async (id) => {
+    await axios.delete(`${baseURL}/deleteProduct/${id}`)
+    .then((e) => {
+      console.log("success")
+      window.location.reload(false)
+    })
+    .catch((err) => {
+      console.log("error", err)
+    })
+    
   }
   useEffect(() => {
     affichagrepas()
     affichcategory()
   }, [])
 
-  function getCategory(category1) {
+  function getCategory (category1) {
     let a = category.filter(cat => cat._id == category1)
     return a[0]?.name
   }
-
-
+  
   return (
     <div>
 
@@ -270,9 +326,7 @@ function repasManager() {
         </>
       ) : null
       }
-
-
-    </div>
+</div>
   )
 }
 

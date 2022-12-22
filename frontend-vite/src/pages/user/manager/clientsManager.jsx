@@ -20,6 +20,19 @@ function ClientsManager() {
     }
   }
 
+  const bannclient = async (e) => {
+    let id= e.target.value
+
+    await axios.put(`${baseURL}/updateuser/${id}`)
+    .then((res)=>{
+      console.log(res.data)
+      affichageclient()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   useEffect(() => {
     affichageclient()
   }, [])
@@ -54,7 +67,11 @@ function ClientsManager() {
                     {client.email}
                   </td>
                   <td className="py-4 px-6 items-center">
-                    <Input type="checkbox" id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
+
+                    <button className={client.isBanned ? "px-4 py-1 btn bg-red-600 text-white rounded" :  "px-4 py-1 rounded bg-green text-white"} onClick={bannclient} value={client._id}>
+                      {(client.isBanned )? " banne " : "banned " }
+                    </button>
+
                   </td>
                 </tr>
               )
