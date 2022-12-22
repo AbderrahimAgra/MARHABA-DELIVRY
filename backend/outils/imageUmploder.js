@@ -5,7 +5,7 @@ const multer = require("multer");
 //destination file au niveau de image
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "images");
+    callback(null, "public/images");
   },
 //override pour ajouter a new image cet function de rename fille 
   filename: (req, file, callback) => {
