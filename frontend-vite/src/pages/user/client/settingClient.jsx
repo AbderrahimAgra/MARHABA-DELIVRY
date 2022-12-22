@@ -19,6 +19,8 @@ function SettingClient() {
     getSetting()
   }, [])
 
+
+
   return (
     <div>
       <form className={`${open ? 'ml-72' : 'ml-20'} duration-300 p-4 pt-9`}>
