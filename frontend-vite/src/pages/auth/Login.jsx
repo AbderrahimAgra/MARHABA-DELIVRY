@@ -19,10 +19,10 @@ function Login() {
     const valeur = e.target.value
     setUser({ ...user, [e.target.name]: valeur })
   }
-
+  
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(user)
+    // console.log(user)
     Axios.post(`${baseURL}/login`, user)
       .then(res => {
 

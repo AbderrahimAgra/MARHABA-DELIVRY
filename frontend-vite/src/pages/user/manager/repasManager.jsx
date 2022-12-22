@@ -14,6 +14,27 @@ const imagePath = 'http://localhost:5500/images'
 
 function repasManager() {
 
+  const [showModal, setShowModal] = useState(false)
+  const [repas, setrepas] = useState([])
+  const [edite, setEdite] = useState(false)
+  const [editRepas, setEditRepas] = useState({ name: '', description: '', img: '', price: '', category: '' })
+  // const [updateRepa, setUpdateRepa] = useState({})
+
+  const updateRepas = (e) => {
+    const valeur = e.target.value
+    setEditRepas({ ...editRepas, [e.target.name]: valeur })
+  }
+
+  // const onSubmit = () => {
+  const edited = async (id) => {
+    await axios.put(`${baseURL}/updateproduct/${id}`)
+      .then(res => {
+        console.log("success")
+      })
+      .catch((err) => {
+        console.log("error", err)
+      })
+  }
   const [data, setData] = useState()
 
   const handleChange = (e) => {
@@ -105,10 +126,45 @@ function repasManager() {
 
       <div className={`${open ? 'ml-72' : 'ml-20'} duration-300 m-3`}>
         <button type="button" onClick={() => setShowModal(true)} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
+        {
+          edite ?
+            <form className={`duration-300 p-4 pt-9`}>
+              <div class="relative z-0 mb-6 w-full group">
+                <Input type="text" name="name" id="name" value={editRepas.name} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Repas" required />
+              </div>
+              <div class="relative z-0 mb-6 w-full group">
+                <Input type="text" name="description" id="description" value={editRepas.description} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Description" required />
+              </div>
+              <div class="relative z-0 mb-6 w-full group">
+                <Input type="text" name="price" id="price" value={editRepas.price} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Image" required />
+              </div>
+              <div className="mb-2">
+                <select id="underline_select" class="block py-2 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                  <option selected>Choose a Category</option>
+                  <option value="">Tacos</option>
+                  <option value="">Pizza</option>
+                  <option value="">Sandwich</option>
+                </select>
+              </div>
+              <div class="flex items-center justify-center w-80">
+                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-42 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                  </div>
+                  <input id="dropzone-file" type="file" class="hidden" />
+                </label>
+              </div>
+              <Button type="submit" onclick={() => { setEdite(false) }} class="text-white bg-black hover:bg-neutral-800 mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
+              <Button type="button" onclick={(e) => { e.preventDefault(); edited(editRepas._id) }} class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Update" />
+            </form>
+            : null
+        }
       </div>
 
-      <div class={`${open ? 'ml-72' : 'ml-20'} duration-300 overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <div class={`${open ? 'ml-72' : 'ml-20'}  duration-300 overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
+        <table class="w-full text-sm text-left mb-5 text-gray-500  dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" class="py-3 px-6">Name</th>
@@ -204,20 +260,39 @@ function repasManager() {
                             <input id="dropzone-file" type="file" name='images' onChange={(e) => { setImg(e.target.files[0]) }} class="hidden" />
                           </label>
                         </div>
+                        <div className="mb-2">
+                          <select id="underline_select" name='categorie' className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                            <option selected>Choose a Category</option>
+                            <option value="">Tacos</option>
+                            <option value="">Pizza</option>
+                            <option value="">Sandwich</option>
+                          </select>
+                        </div>
+                        <div className="mb-2">
+                          <div class="flex items-center justify-center w-72">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-42 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                              </div>
+                              <input id="dropzone-file" name='images' type="file" class="hidden" />
+                            </label>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => setShowModal(false)} btn='Close' />
-                      <Button type='submit' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
-                    </div>
-                  </form>
+                      <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
+                        <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => setShowModal(false)} btn='Close' />
+                        <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
+                      </div>
+                    </form>
+                  </div>
+                  {/*footer*/}
                 </div>
-                {/*footer*/}
               </div>
             </div>
-          </div>
-        </>
-      ) : null
+          </>
+        ) : null
       }
 
 
