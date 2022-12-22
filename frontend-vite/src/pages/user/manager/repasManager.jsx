@@ -57,24 +57,24 @@ function repasManager() {
   
   const affichagrepas = async () => {
     
-          const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
-          
-          if (datarepas) {
-            setrepas(datarepas.data)
-          } else {
-            console.log("error", err)
-          }
+        const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
+        
+        if (datarepas) {
+          setrepas(datarepas.data)
+        } else {
+          console.log("error", err)
         }
-        const affichcategory = async () => {
-          const datarepas = await axios.get(`${baseURL}/findcategory`)
-          
-          
-          if (datarepas) {
-            setcategory(datarepas.data)
-            console.log(datarepas.data)
-          } else {
-            console.log("error", err)
-          }
+      }
+      const affichcategory = async () => {
+        const datarepas = await axios.get(`${baseURL}/findcategory`)
+        
+        
+        if (datarepas) {
+          setcategory(datarepas.data)
+          console.log(datarepas.data)
+        } else {
+          console.log("error", err)
+        }
   }
   
   
