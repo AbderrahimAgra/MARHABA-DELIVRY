@@ -35,6 +35,7 @@ const editform = async() =>{
     toast.error(error.response.data);
   })
 }
+
  const handelName = (e) =>{
 
     setName(e.target.value)
