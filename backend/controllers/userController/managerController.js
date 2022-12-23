@@ -206,7 +206,6 @@ const updateproduct = async (req, res) => {
   const findcategory = await Category.findOne()
 
   const { id } = req.params
-  console.log(req.params)
   const UpdatedProduct = {
     name: req.body.name,
     description: req.body.description,
@@ -215,7 +214,7 @@ const updateproduct = async (req, res) => {
     images: req.file.filename
 
   };
-  console.log(req.body.name)
+  // console.log(req.body.name)
 
   try {
     await Meal.findByIdAndUpdate(
