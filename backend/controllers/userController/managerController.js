@@ -69,24 +69,20 @@ const deletcategory = async (req, res) => {
 }
 
 const updatecategory = async (req, res) => {
-  const { id } = req.params
-
-  const data = await Category.findOneAndUpdate({ _id: id }, { name: req.body.name })
+  const id = req.params.id
+  const name = req.body.name
+  const data = await Category.findOneAndUpdate({ _id: id }, { name: name })
   if (!data) res.send('not')
   res.send('updated')
-
 }
 
 const updateuser = async (req, res) => {
-  const { id } = req.params
+  const id  = req.params.id
 
-  const data = await User.findOne({ _id: id })
-  if (data.isBanned == true) {
-    await User.findOneAndUpdate({ _id: id }, { isBanned: false })
-  } else {
-    await User.findOneAndUpdate({ _id: id }, { isBanned: true })
-  }
-  res.send(data)
+  const data = await User.findById(id)
+  data.isBanned = !data.isBanned
+  await data.save()
+  res.send(data.isBanned)
 
 
 }
@@ -192,7 +188,10 @@ const deletproduct = async (req, res) => {
 }
 
 const GetAllProduct = async (req, res) => {
-  const allProduct = await Meal.find();
+  const allProduct = await Meal.find().populate({
+    path : 'category',
+    model : Category
+  });
   try {
     if (allProduct) {
       res.send(allProduct);
@@ -204,6 +203,7 @@ const GetAllProduct = async (req, res) => {
 };
 
 const updateproduct = async (req, res) => {
+  const findcategory = await Category.findOne()
 
   const { id } = req.params
   console.log(req.params)
