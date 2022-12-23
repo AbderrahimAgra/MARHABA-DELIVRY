@@ -19,6 +19,20 @@ function livreursManager() {
       console.log("error", err)
     }
   }
+  const bannlivreur = async(e) =>{
+    let id = e.target.value
+      await axios.put(`${baseURL}/updateuser/${id}`)
+    .then((res)=>{
+      console.log(res.data)
+          fetchLivreurs()
+
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+
+  }
 
 
   useEffect(() => {
@@ -57,8 +71,10 @@ function livreursManager() {
                     {livreur.email}
                   </td>
                   <td className="py-4 px-6 items-center">
-                    <Input type="checkbox" checked={Boolean(livreur.isBanned)} id="status" name="status" class="w-5 h-5 mr-3 text-black  bg-gray-100 rounded border-gray-300  dark:focus:bg-black dark:ring-offset-gray-800 focus:ring-2 dark:bg-black dark:border-gray-600" />
-                  </td>
+                <button className = { livreur.isBanned ? "px-4 py-1 btn bg-red-600 text-white rounded" :  "px-4 py-1 rounded bg-green text-white"} value={livreur._id} onClick={bannlivreur}>
+                  {(livreur.isBanned) ? "bann" : "banned"}
+                </button>
+                </td>
                 </tr>
               )
             })}

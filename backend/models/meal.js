@@ -24,12 +24,12 @@ const repasSchema= mongoose.Schema({
             required: true,
             trim: true
         },
-      category: [
+      category: 
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "category" 
         }
-      ]
+      
 
 })
 module.exports = mongoose.model('meal', repasSchema)
