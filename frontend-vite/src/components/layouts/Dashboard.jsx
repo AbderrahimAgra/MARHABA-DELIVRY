@@ -74,7 +74,7 @@ const Dashboard = () => {
                 </li>
               ))}
               <div className="flex items-center">
-                <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class="duration-200 text-lg text-white" btn='Logout' />
+                <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class={`${!open && 'hidden'} duration-200 text-lg text-white`} btn='Logout' />
               </div>
             </ul>)
             :

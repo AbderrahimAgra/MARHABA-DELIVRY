@@ -4,6 +4,8 @@ import { MdDeleteSweep } from 'react-icons/md'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
+import { ToastContainer, toast } from 'react-toastify';
+
 import axios from "axios";
 
 
@@ -14,7 +16,6 @@ const imagePath = 'http://localhost:5500/images'
 
 function repasManager() {
 
-  const [data, setData] = useState()
   const [showModal, setShowModal] = useState(false)
   const [repas, setrepas] = useState([])
   const [edite, setEdite] = useState(false)
@@ -22,10 +23,51 @@ function repasManager() {
   const [category, setcategory] = useState([])
   // const [updateRepa, setUpdateRepa] = useState({})
 
+  
+
   const updateRepas = (e) => {
     const valeur = e.target.value
     setEditRepas({ ...editRepas, [e.target.name]: valeur })
   }
+  const [imgedit, setImgedit] = useState()
+
+  
+   const editmeal = async() =>{
+    const dataedit = new FormData()
+
+    dataedit.append('name', editRepas.name)
+    dataedit.append('description', editRepas.description)
+    dataedit.append('price', editRepas.price)
+    dataedit.append('category', editRepas.category)
+    dataedit.append('images', imgedit)
+    await axios.put(`${baseURL}/updateproduct/${editRepas._id}`,dataedit)
+    .then((res) =>{
+      console.log(res.data)
+      affichagrepas()
+      affichcategory()
+      toast.success(res.data)
+    }) 
+    .catch ((error)=>{
+      toast.error(error.response.data);
+    })
+
+   } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // const onSubmit = () => {
   const edited = async (id) => {
@@ -72,19 +114,13 @@ function repasManager() {
   }
 
 
-  const handleChange = (e) => {
-      setData({    
-        ...data,
-        [e.target.name]: e.target.value}
-      )
-  }
+  const affichagrepas = async () => {
 
-  const [img, setImg] = useState()  
-  
-  function addMeal (e) {
-    e.preventDefault()
+    const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
+
     if (datarepas) {
       setrepas(datarepas.data)
+      console.log(datarepas.data)
     } else {
       console.log("error", err)
     }
@@ -95,83 +131,35 @@ function repasManager() {
 
     if (datarepas) {
       setcategory(datarepas.data)
-      console.log(datarepas.data)
+      // console.log(datarepas.data)
     } else {
       console.log("error", err)
     }
   }
 
 
-    const data2 = new FormData()
-
-    data2.append('name', data.name)
-    data2.append('description', data.description)
-    data2.append('price', data.price)
-    data2.append('category', data.category)
-    data2.append('images', img)
-
-    axios.post(`${baseURL}/implodProduct`, data2)
-      .then((response) => {
-        console.log(response)
+  const deleted = async (id) => {
+    await axios.delete(`${baseURL}/deleteProduct/${id}`)
+      .then((e) => {
+        console.log("success")
         window.location.reload(false)
       })
       .catch((err) => {
-        console.log(err)
+        console.log("error", err)
       })
 
-  }
-
-  
-  const [open, setOpen] = useState(true)
-  const [showModal, setShowModal] = useState(false)
-  const [repas, setrepas] = useState([])
-  const [category, setcategory] = useState([])
-
-  
-  const affichagrepas = async () => {
-    
-        const datarepas = await axios.get(`${baseURL}/GetAllProduct`)
-        
-        if (datarepas) {
-          setrepas(datarepas.data)
-        } else {
-          console.log("error", err)
-        }
-      }
-      const affichcategory = async () => {
-        const datarepas = await axios.get(`${baseURL}/findcategory`)
-        
-        
-        if (datarepas) {
-          setcategory(datarepas.data)
-          console.log(datarepas.data)
-        } else {
-          console.log("error", err)
-        }
-  }
-  
-  
-  const deleted = async (id) => {
-    await axios.delete(`${baseURL}/deleteProduct/${id}`)
-    .then((e) => {
-      console.log("success")
-      window.location.reload(false)
-    })
-    .catch((err) => {
-      console.log("error", err)
-    })
-    
   }
   useEffect(() => {
     affichagrepas()
     affichcategory()
   }, [])
 
-  function getCategory (category1) {
-    let a = category.filter(cat => cat._id == category1)
-    return a[0]?.name
-  }
-  
+  // function getCategory(category1) {
+  //   let a = category.filter(cat => cat._id == category1)
+  //   return a[0]?.name
+  // }
+
+
   return (
     <div>
 
@@ -190,11 +178,13 @@ function repasManager() {
                 <Input type="text" name="price" id="price" value={editRepas.price} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Image" required />
               </div>
               <div className="mb-2">
-                <select id="underline_select" class="block py-2 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                <select id="underline_select"  class="block py-2 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                   <option selected>Choose a Category</option>
-                  <option value="">Tacos</option>
-                  <option value="">Pizza</option>
-                  <option value="">Sandwich</option>
+                  {category.map((cate) => (
+
+                  <option value={cate._id}>{cate.name}</option>
+
+                   ))}
                 </select>
               </div>
               <div class="flex items-center justify-center w-80">
@@ -204,11 +194,11 @@ function repasManager() {
                     <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                   </div>
-                  <input id="dropzone-file" type="file" class="hidden" />
+                  <input id="dropzone-file" type="file" class="hidden" onChange={(e) => { setImgedit(e.target.files[0]) }} />
                 </label>
               </div>
               <Button type="submit" onclick={() => { setEdite(false) }} class="text-white bg-black hover:bg-neutral-800 mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
-              <Button type="button" onclick={(e) => { e.preventDefault(); edited(editRepas._id) }} class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Update" />
+              <Button type="button" onclick={ editmeal} class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Update" />
             </form>
             : null
         }
@@ -239,7 +229,8 @@ function repasManager() {
                   <img src={`${imagePath}/${reppa.images}`} width="50px" alt="" />
                 </td>
                 <td class="py-4 px-6">
-                  {getCategory(reppa.category)}
+                  {/* {getCategory(reppa.category)} */}
+                  {reppa.category.name}
                 </td>
                 <td class="py-4 px-6">
                   {reppa.price} prix
@@ -326,8 +317,13 @@ function repasManager() {
         </>
       ) : null
       }
-</div>
+      <ToastContainer/>
+
+
+    </div>
   )
+
+
 }
 
 
