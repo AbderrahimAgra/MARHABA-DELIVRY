@@ -2,6 +2,7 @@ import { React } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import axios from 'axios'
+import { Provider } from 'react-redux';
 import ProtectedRoutes from './ProtectedRoutes';
 // Pages the Auth
 import Login from './pages/auth/Login'
@@ -21,47 +22,50 @@ import LivreursManager from './pages/user/manager/LivreursManager'
 import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
 import 'react-toastify/dist/ReactToastify.css';
+import store from './store/store';
 // import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
 
-// window.addEventListener("storage", () => {
-//   axios
-//     .get('http://localhost:5500/api/auth/logout')
-//     .then(() => {
-//       localStorage.clear();
-//       window.location.replace('http://127.0.0.1:5173/login');
-//     })
-//     .catch(() => {
-//       console.log("Error");
-//     });
-// });
+window.addEventListener("storage", () => {
+  axios
+    .get('http://localhost:5500/api/auth/logout')
+    .then(() => {
+      localStorage.clear();
+      window.location.replace('http://127.0.0.1:5173/login');
+    })
+    .catch(() => {
+      console.log("Error");
+    });
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* { Auth} */}
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
-        {/* { Client } */}
-        <Route path='/dashboard/client' element={<Dashboard />}>
-          <Route path='' element={<DashbordClient />} />
-          <Route path='setting' element={<SettingClient />} />
-        </Route>
-        {/* { Manager } */}
-        <Route path='/dashboard/manager' element={<Dashboard />}>
-          <Route path='' element={<DashbordManager />} />
-          <Route path='repas' element={<RepasManager />} />
-          <Route path='category' element={<CategoryManager />} />
-          <Route path='command' element={<CommandManager />} />
-          <Route path='livreurs' element={<LivreursManager />} />
-          <Route path='clients' element={<ClientsManager />} />
-          <Route path='setting' element={<SettingManager />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          {/* { Auth} */}
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
+          {/* { Client } */}
+          <Route path='/dashboard/client' element={<Dashboard />}>
+            <Route path='' element={<DashbordClient />} />
+            <Route path='setting' element={<SettingClient />} />
+          </Route>
+          {/* { Manager } */}
+          <Route path='/dashboard/manager' element={<Dashboard />}>
+            <Route path='' element={<DashbordManager />} />
+            <Route path='repas' element={<RepasManager />} />
+            <Route path='category' element={<CategoryManager />} />
+            <Route path='command' element={<CommandManager />} />
+            <Route path='livreurs' element={<LivreursManager />} />
+            <Route path='clients' element={<ClientsManager />} />
+            <Route path='setting' element={<SettingManager />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
