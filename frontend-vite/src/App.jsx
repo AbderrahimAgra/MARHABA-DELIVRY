@@ -1,7 +1,8 @@
-import { React } from 'react';
+import React  from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import axios from 'axios'
+//make the store availible to alll component 
 import { Provider } from 'react-redux';
 import ProtectedRoutes from './ProtectedRoutes';
 // Pages the Auth
@@ -10,7 +11,7 @@ import Signup from './pages/auth/Signup'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import FormForgotPassword from './pages/auth/FormForgotPassword'
 // Pages Client
-import Dashboard from './components/layouts/Dashboard';
+import Dashboards from './components/layouts/Dashboard';
 import DashbordClient from './pages/user/client/dashboardClient'
 import SettingClient from './pages/user/client/settingClient'
 // Pages Manager
@@ -23,6 +24,7 @@ import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
 import 'react-toastify/dist/ReactToastify.css';
 import store from './store/store';
+
 // import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
 
 window.addEventListener("storage", () => {
@@ -49,12 +51,12 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
           {/* { Client } */}
-          <Route path='/dashboard/client' element={<Dashboard />}>
+          <Route path='/dashboard/client' element={<Dashboards />}>
             <Route path='' element={<DashbordClient />} />
             <Route path='setting' element={<SettingClient />} />
           </Route>
           {/* { Manager } */}
-          <Route path='/dashboard/manager' element={<Dashboard />}>
+          <Route path='/dashboard/manager' element={<Dashboards />}>
             <Route path='' element={<DashbordManager />} />
             <Route path='repas' element={<RepasManager />} />
             <Route path='category' element={<CategoryManager />} />

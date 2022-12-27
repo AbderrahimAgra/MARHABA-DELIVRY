@@ -26,13 +26,21 @@ function Client() {
     affichagrep()
   }, [])
 
+  // const [x,setX] = useState("") 
+  // let v= false
+  // if( 2 == 2){
+  //   setX('test')
+  //   v=true
+  // }
+    
+
   return (
     <div>
       <div className={`${open ? 'ml-72' : 'ml-20'} mb-4 duration-300 flex flex-wrap justify-center`}>
         {isOpen ? <Shoppingcart /> : null}
         {repas.map((reppa, index) => (
-          <div key={index} className="w-72  max-w-sm mb-4 bg-white rounded-lg shadow-md mt-4 drop-shadow-2xl mr-6">
-            <img className='w-72 h-72 mb-5 p-5' src={`${imagePath}/${reppa.images}`} alt="" />
+          <div key={index} className="w-72  max-w-sm mb-4 bg-white rounded-lg shadow-md mt-4 drop-shadow-2xl mr-6">  
+          <img className='w-72 h-72 mb-5 p-5' src={`${imagePath}/${reppa.images}`} alt="" />
             <div className="px-5 pb-5 items-end ">
               <h1 className="font-semibold tracking-tight text-black text-4xl">{reppa.name}</h1>
               <p className="text-sm font-normal">{reppa.description} </p>

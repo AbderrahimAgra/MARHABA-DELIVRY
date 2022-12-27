@@ -17,11 +17,18 @@ export const cartSlice = createSlice({
     setItemQuantity: (state, action) => {
         if(action.payload < 0) return state
         return {...state, items: state.items.map(item => {return item._id === action.payload._id ? {...item, quantity:action.payload.quantity}:item})}
+    },
+    deleteItems : (state , action)=>{
+        const nextCartItem = state.items.filter(
+            (item)=> item._id !== action.payload._id
+        );
+        
     }
+
   },
 })
 
-export const { addItem, toggleCard, setItemQuantity} = cartSlice.actions
+export const { addItem,deleteItems, toggleCard, setItemQuantity} = cartSlice.actions
 
 export const selectCart = (state) => state.cart.items
 export const selectIsOpen = state => state.cart.isOpen
