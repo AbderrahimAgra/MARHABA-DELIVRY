@@ -8,6 +8,7 @@ const upload = require("../../outils/imageUmploder");
 const { role } = require('../../models')
 const removefile = require('../../outils/removeimage')
 const fs = require('fs')
+const { db } = require('../../models/userModel')
 
 
 const managerUser = async (req, res) => {
@@ -36,27 +37,6 @@ const addcategory = async (req, res) => {
       res.status(200).send("created category")
     }
 
-    //!------------------------------------------------autre methode create---------------------------------
-    // const created_category = new Category({
-    //   name:name
-    // })
-    // await created_category.save()
-    //  res.json({
-    //    mesage:" category created"
-    //  })
-
-  }
-
-}
-
-const findcategory = async (req, res) => {
-
-  const findcategoris = await Category.find()
-  if (findcategoris) {
-    res.json(findcategoris)
-  }
-}
-
 const deletcategory = async (req, res) => {
   const { id } = req.params.id
   const finddeleted = await Category.findOne({ id })
@@ -66,25 +46,45 @@ const deletcategory = async (req, res) => {
   }
   else res.status(401).send('not deleted')
 
-}
+    //!------------------------------------------------ methode findcategory---------------------------------
 
-const updatecategory = async (req, res) => {
-  const id = req.params.id
-  const name = req.body.name
-  const data = await Category.findOneAndUpdate({ _id: id }, { name: name })
-  if (!data) res.send('not')
-  res.send('updated')
-}
+
+                                        const findcategory = async (req, res) => {
+
+                                          const findcategoris = await Category.find()
+                                          if (findcategoris) {
+                                            res.json(findcategoris)
+                                          }
+                                        }
+    //!------------------------------------------------ methode deletecategory---------------------------------
+
+                                          const deletcategory = async (req, res) => {
+                                            const { id } = req.params.id
+                                            const finddeleted = await Category.findOne({ id })
+                                            if (finddeleted) {
+                                              await finddeleted.remove()
+                                              res.status(200).send(`deleted succesfully`)
+                                            }
+                                            else res.status(401).send('not deleted')
+
+                                          }
+    //!------------------------------------------------ methode updatecategory---------------------------------
+
+                                            const updatecategory = async (req, res) => {
+                                              const id = req.params.id
+                                              const name = req.body.name
+                                              const data = await Category.findOneAndUpdate({ _id: id }, { name: name })
+                                              if (!data) res.send('not')
+                                              res.send('updated')
+                                            }
+
 
 const updateuser = async (req, res) => {
   const id  = req.params.id
-
   const data = await User.findById(id)
   data.isBanned = !data.isBanned
   await data.save()
   res.send(data.isBanned)
-
-
 }
 
 const listclient = async (req, res) => {
@@ -116,11 +116,6 @@ const listlivreur = async (req, res) => {
 }
 
 const addimage = async (req, res) => {
-  // res.send({
-  //   file: req.file.filename,
-  //   path: req.path
-  // })
-  // const path = req.file.path;
   const findcategory = await Category.find()
   console.log(findcategory)
   const { name, description, price, category } = req.body;
@@ -156,14 +151,7 @@ const addimage = async (req, res) => {
     throw new Error("product is not added");
 
   }
-}
-// res.send({
-//   file: req.file.filename,
-//   path: req.path
-// })
-// const path = req.file.path;
-
-       
+}    
 
 // jai un probleme file systemenje les resoudrÃ©
 const deletproduct = async (req, res) => {
@@ -202,9 +190,16 @@ const GetAllProduct = async (req, res) => {
   }
 };
 
+
+const statistique = async (req,res)=>{
+  const user =await User.find().count()
+  const meal =await Meal.find().count()
+  const category =await Category.find().count()
+  res.json({user,meal,category})
+}
+
 const updateproduct = async (req, res) => {
   const findcategory = await Category.findOne()
-
   const { id } = req.params
   const UpdatedProduct = {
     name: req.body.name,
@@ -214,15 +209,12 @@ const updateproduct = async (req, res) => {
     images: req.file.filename
 
   };
-  // console.log(req.body.name)
 
   try {
     await Meal.findByIdAndUpdate(
       { _id: id },
       UpdatedProduct,
-
     );
-
     res.status(201).json({
       message: "Product updated successfully!",
     });
@@ -233,8 +225,6 @@ const updateproduct = async (req, res) => {
   }
 }
 
-
-
 module.exports = {
   managerUser,
   addcategory,
@@ -244,7 +234,7 @@ module.exports = {
   updateuser,
   listclient,
   listlivreur,
-
+  statistique,
   addimage,
   deletproduct,
   GetAllProduct,

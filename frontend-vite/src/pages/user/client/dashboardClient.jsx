@@ -9,7 +9,6 @@ const baseURL = 'http://localhost:5500/api/user/manager'
 const imagePath = 'http://localhost:5500/images'
 
 function Client() {
-
   const [repas, setrepas] = useState([])
   const dispatch = useDispatch();
   const isOpen = useSelector(selectIsOpen)
@@ -25,14 +24,6 @@ function Client() {
   useEffect(() => {
     affichagrep()
   }, [])
-
-  // const [x,setX] = useState("") 
-  // let v= false
-  // if( 2 == 2){
-  //   setX('test')
-  //   v=true
-  // }
-    
 
   return (
     <div>
@@ -55,6 +46,5 @@ function Client() {
     </div>
   )
 }
-
 
 export default Client

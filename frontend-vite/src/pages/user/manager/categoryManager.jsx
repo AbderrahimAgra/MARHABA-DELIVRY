@@ -36,8 +36,7 @@ const editform = async() =>{
   })
 }
 
- const handelName = (e) =>{
-
+  const handelName = (e) =>{
     setName(e.target.value)
     console.log(name)
   }
@@ -80,14 +79,12 @@ const editform = async() =>{
     }
   }
 
-
   useEffect(() => {
     affichcategory();
   }, [])
 
   return (
     <div>
-
         <div className={`${open ? 'ml-72' : 'ml-20'} duration-300 m-3`}>
           <Button type="button" onclick={() => setShowModal(true)} class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800" btn="Ajouter Category" />
         </div>
@@ -142,7 +139,7 @@ const editform = async() =>{
                   <form className="my-4 text-slate-500 text-lg leading-relaxed">
                     <div className="flex flex-col">
                       <div className="mb-2">
-                        <Input type="text" value={name} onChange={handeName} name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Category" required />
+                        <Input type="text" value={name} onChange={handelName} name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Category" required />
                       </div>
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
@@ -186,9 +183,7 @@ const editform = async() =>{
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
                       <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => setShowModaledit(false)} btn='Close' />
-                      {/* <Button type='button' onClick={registerHandler} className='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' /> */}
                       <button type='button' onClick={editform} className='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800'>valider</button>
-                      <button type='button' onClick={registerHandler} className='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800'>valider</button>
                     </div>
                   </form>
                 </div>
