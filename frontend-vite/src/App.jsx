@@ -23,7 +23,7 @@ import LivreursManager from './pages/user/manager/LivreursManager'
 import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
 import 'react-toastify/dist/ReactToastify.css';
-// import store from './store/store';
+import store from './store/store'
 
 window.addEventListener("storage", () => {
   axios

@@ -41,7 +41,6 @@ const addcategory = async (req, res) => {
 
     //!------------------------------------------------ methode findcategory---------------------------------
 
-
                                         const findcategory = async (req, res) => {
 
                                           const findcategoris = await Category.find()
@@ -61,7 +60,7 @@ const addcategory = async (req, res) => {
                                             else res.status(401).send('not deleted')
 
                                           }
-    // !------------------------------------------------ methode updatecategory---------------------------------
+    //!------------------------------------------------ methode updatecategory---------------------------------
 
                                             const updatecategory = async (req, res) => {
                                               const id = req.params.id
@@ -70,7 +69,6 @@ const addcategory = async (req, res) => {
                                               if (!data) res.send('not')
                                               res.send('updated')
                                             }
-
 
 const updateuser = async (req, res) => {
   const id  = req.params.id
