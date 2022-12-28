@@ -9,6 +9,8 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import Button from '../Button';
 
 import Axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCart, toggleCard } from '../../store/slices/cart.sclice';
 
 const baseURL = 'http://localhost:5500/api/auth'
 
@@ -29,15 +31,16 @@ const Dashboard = () => {
   const [open, setOpen] = useState(true)
 
   const role = localStorage.getItem('role')
-
+  const cart = useSelector(selectCart)
+  const dispatch = useDispatch()
 
   const MenusClient = [
     { title: "Dashboad", icon: AiOutlineDashboard, route: '' },
-    { title: "Salade", icon: GiHotMeal, gap: true, route: '/' },
-    { title: "Pizza", icon: GiHotMeal, route: '/' },
-    { title: "Tacos", icon: GiHotMeal, route: '/' },
-    { title: "Sandwich", icon: GiHotMeal, route: '/' },
-    { title: "Desserts", icon: GiHotMeal, route: '/' },
+    { title: "Salade", icon: GiHotMeal, gap: true, route: '' },
+    { title: "Pizza", icon: GiHotMeal, route: '' },
+    { title: "Tacos", icon: GiHotMeal, route: '' },
+    { title: "Sandwich", icon: GiHotMeal, route: '' },
+    { title: "Desserts", icon: GiHotMeal, route: '' },
     { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
   ]
 
@@ -74,7 +77,7 @@ const Dashboard = () => {
                 </li>
               ))}
               <div className="flex items-center">
-                <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class="duration-200 text-lg text-white" btn='Logout' />
+                <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class={`${!open && 'hidden'} duration-200 text-lg text-white`} btn='Logout' />
               </div>
             </ul>)
             :
@@ -95,15 +98,16 @@ const Dashboard = () => {
         </div>
 
         <div className="p-3 px-5 text-2xl font-semibold flex-1 h-screen">
-          <nav className={`${open ? 'ml-80' : 'ml-20'} duration-300 bg-black ml-20 text-white border-gray-200 px-2 rounded-xl sm:px-4 py-2.5 dark:bg-gray-900`}>
+          <nav className={`${open ? 'ml-72' : 'ml-20'} duration-300 bg-black ml-20 text-white border-gray-200 px-2 rounded-xl sm:px-4 py-2.5 dark:bg-gray-900`}>
             <div className="container flex flex-wrap items-center justify-between mx-auto">
               <a href="#" className="flex items-center">
                 <img src="../../../public/assets/logo.png" className="h-6 mr-3 sm:h-9" alt="Marhaba Logo" />
               </a>
               <div class="flex items-center md:order-2">
                 {role === 'client' ?
-                  <div>
-                    <BsFillCartCheckFill className='mr-2' />
+                  <div className="flex align-center">
+                    <h1>{cart.length}</h1>
+                    <BsFillCartCheckFill className='mr-2' onClick={() => dispatch(toggleCard())}/>
                   </div>
                   : null
                 }
