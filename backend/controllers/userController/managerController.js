@@ -8,6 +8,7 @@ const upload = require("../../outils/imageUmploder");
 const { role } = require('../../models')
 const removefile = require('../../outils/removeimage')
 const fs = require('fs')
+const { db } = require('../../models/userModel')
 
 
 const managerUser = async (req, res) => {
@@ -24,18 +25,21 @@ const managerUser = async (req, res) => {
     role: role_user.name
   })
 }
+    //!------------------------------------------------ methode create---------------------------------
 
-const addcategory = async (req, res) => {
-  const { name } = req.body
-  if (name == '') res.status(401).send("Please Fill The name")
-  const category = await Category.findOne({ name })
-  if (category) res.status(401).send("the category deja already")
-  if (!category) {
-    const category_create = await Category.create({ name })
-    if (category_create) {
-      res.status(200).send("created category")
-    }
+                                            const addcategory = async (req, res) => {
+                                              const { name } = req.body
+                                              if (name == '') res.status(401).send("Please Fill The name")
+                                              const category = await Category.findOne({ name })
+                                              if (category) res.status(401).send("the category deja already")
+                                              if (!category) {
+                                             await Category.create({ name })
+                                                if (category_create) {
+                                                  res.status(200).send("created category")
+                                                }
+                                              }
 
+                                            }
     //!------------------------------------------------autre methode create---------------------------------
     // const created_category = new Category({
     //   name:name
@@ -45,36 +49,46 @@ const addcategory = async (req, res) => {
     //    mesage:" category created"
     //  })
 
-  }
 
-}
+    // const add = async (req, res) => {
+    //   const { body } = req
+    //    const cat= Categorie.create({...body})
+    // }
 
-const findcategory = async (req, res) => {
 
-  const findcategoris = await Category.find()
-  if (findcategoris) {
-    res.json(findcategoris)
-  }
-}
 
-const deletcategory = async (req, res) => {
-  const { id } = req.params.id
-  const finddeleted = await Category.findOne({ id })
-  if (finddeleted) {
-    await finddeleted.remove()
-    res.status(200).send(`deleted succesfully`)
-  }
-  else res.status(401).send('not deleted')
 
-}
+    //!------------------------------------------------ methode findcategory---------------------------------
 
-const updatecategory = async (req, res) => {
-  const id = req.params.id
-  const name = req.body.name
-  const data = await Category.findOneAndUpdate({ _id: id }, { name: name })
-  if (!data) res.send('not')
-  res.send('updated')
-}
+
+                                        const findcategory = async (req, res) => {
+
+                                          const findcategoris = await Category.find()
+                                          if (findcategoris) {
+                                            res.json(findcategoris)
+                                          }
+                                        }
+    //!------------------------------------------------ methode deletecategory---------------------------------
+
+                                          const deletcategory = async (req, res) => {
+                                            const { id } = req.params.id
+                                            const finddeleted = await Category.findOne({ id })
+                                            if (finddeleted) {
+                                              await finddeleted.remove()
+                                              res.status(200).send(`deleted succesfully`)
+                                            }
+                                            else res.status(401).send('not deleted')
+
+                                          }
+    //!------------------------------------------------ methode updatecategory---------------------------------
+
+                                            const updatecategory = async (req, res) => {
+                                              const id = req.params.id
+                                              const name = req.body.name
+                                              const data = await Category.findOneAndUpdate({ _id: id }, { name: name })
+                                              if (!data) res.send('not')
+                                              res.send('updated')
+                                            }
 
 const updateuser = async (req, res) => {
   const id  = req.params.id
@@ -189,7 +203,9 @@ const deletproduct = async (req, res) => {
 
 const GetAllProduct = async (req, res) => {
   const allProduct = await Meal.find().populate({
+    //path smiyat l fild
     path : 'category',
+    //smiyat model li dayr m3ah foringkey
     model : Category
   });
   try {
@@ -202,8 +218,25 @@ const GetAllProduct = async (req, res) => {
   }
 };
 
+
+const statistique = async (req,res)=>{
+  const user =await User.find().count()
+  const meal =await Meal.find().count()
+  const category =await Category.find().count()
+
+
+
+      // const result = db.User.aggregate([{$count:"_id"}])
+  res.json({user,meal,category})
+
+
+
+
+
+}
+
 const updateproduct = async (req, res) => {
-  const findcategory = await Category.findOne()
+  // const findcategory = await Category.findOne()
 
   const { id } = req.params
   console.log(req.params)
@@ -245,7 +278,7 @@ module.exports = {
   updateuser,
   listclient,
   listlivreur,
-
+  statistique,
   addimage,
   deletproduct,
   GetAllProduct,

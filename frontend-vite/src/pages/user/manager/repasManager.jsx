@@ -55,30 +55,6 @@ function repasManager() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // const onSubmit = () => {
-  const edited = async (id) => {
-    await axios.put(`${baseURL}/updateproduct/${id}`)
-      .then(res => {
-        console.log("success")
-      })
-      .catch((err) => {
-        console.log("error", err)
-      })
-  }
   const [data, setData] = useState()
 
   const handleChange = (e) => {
