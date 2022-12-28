@@ -4,7 +4,7 @@ import './App.css';
 import axios from 'axios'
 //make the store availible to alll component 
 import { Provider } from 'react-redux';
-import ProtectedRoutes from './ProtectedRoutes';
+// import ProtectedRoutes from './ProtectedRoutes';
 // Pages the Auth
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
@@ -23,7 +23,7 @@ import LivreursManager from './pages/user/manager/LivreursManager'
 import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
 import 'react-toastify/dist/ReactToastify.css';
-import store from './store/store';
+import store from './store/store'
 
 window.addEventListener("storage", () => {
   axios

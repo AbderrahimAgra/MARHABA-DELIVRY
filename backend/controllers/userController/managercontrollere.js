@@ -36,10 +36,18 @@ const addcategory = async (req, res) => {
     if (category_create) {
       res.status(200).send("created category")
     }
+
+const deletcategory = async (req, res) => {
+  const { id } = req.params.id
+  const finddeleted = await Category.findOne({ id })
+  if (finddeleted) {
+    await finddeleted.remove()
+    res.status(200).send(`deleted succesfully`)
   }
-}
+  else res.status(401).send('not deleted')
 
     //!------------------------------------------------ methode findcategory---------------------------------
+
 
                                         const findcategory = async (req, res) => {
 
@@ -69,6 +77,7 @@ const addcategory = async (req, res) => {
                                               if (!data) res.send('not')
                                               res.send('updated')
                                             }
+
 
 const updateuser = async (req, res) => {
   const id  = req.params.id
@@ -149,6 +158,8 @@ const deletproduct = async (req, res) => {
   const id = req.params.id;
   try {
     const result = await Meal.findById(id);
+    // removefile.removefile(result.images);
+    // const directoryPath = 'C:\Users\Youcode\Desktop\MARHABA-DELIVRY\backend\images\1671028061674.png';
     try {
       fs.unlinkSync(`C:/Users/Youcode/Desktop/MARHABA-DELIVRY/backend/images/${result.images[0]}`);
       console.log('deleted from fs file');
@@ -168,11 +179,15 @@ const GetAllProduct = async (req, res) => {
   const allProduct = await Meal.find().populate({
     path : 'category',
     model : Category
-  })
+  });
+  try {
     if (allProduct) {
       res.send(allProduct);
     }
     else throw new Error("no product found");
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 
@@ -224,4 +239,4 @@ module.exports = {
   deletproduct,
   GetAllProduct,
   updateproduct
-}
+};
