@@ -25,38 +25,19 @@ const managerUser = async (req, res) => {
     role: role_user.name
   })
 }
-    //!------------------------------------------------ methode create---------------------------------
 
-                                            const addcategory = async (req, res) => {
-                                              const { name } = req.body
-                                              if (name == '') res.status(401).send("Please Fill The name")
-                                              const category = await Category.findOne({ name })
-                                              if (category) res.status(401).send("the category deja already")
-                                              if (!category) {
-                                             await Category.create({ name })
-                                                if (category_create) {
-                                                  res.status(200).send("created category")
-                                                }
-                                              }
-
-                                            }
-    //!------------------------------------------------autre methode create---------------------------------
-    // const created_category = new Category({
-    //   name:name
-    // })
-    // await created_category.save()
-    //  res.json({
-    //    mesage:" category created"
-    //  })
-
-
-    // const add = async (req, res) => {
-    //   const { body } = req
-    //    const cat= Categorie.create({...body})
-    // }
-
-
-
+const addcategory = async (req, res) => {
+  const { name } = req.body
+  if (name == '') res.status(401).send("Please Fill The name")
+  const category = await Category.findOne({ name })
+  if (category) res.status(401).send("the category deja already")
+  if (!category) {
+    const category_create = await Category.create({ name })
+    if (category_create) {
+      res.status(200).send("created category")
+    }
+  }
+}
 
     //!------------------------------------------------ methode findcategory---------------------------------
 
@@ -80,7 +61,7 @@ const managerUser = async (req, res) => {
                                             else res.status(401).send('not deleted')
 
                                           }
-    //!------------------------------------------------ methode updatecategory---------------------------------
+    // !------------------------------------------------ methode updatecategory---------------------------------
 
                                             const updatecategory = async (req, res) => {
                                               const id = req.params.id
@@ -90,15 +71,13 @@ const managerUser = async (req, res) => {
                                               res.send('updated')
                                             }
 
+
 const updateuser = async (req, res) => {
   const id  = req.params.id
-
   const data = await User.findById(id)
   data.isBanned = !data.isBanned
   await data.save()
   res.send(data.isBanned)
-
-
 }
 
 const listclient = async (req, res) => {
@@ -130,11 +109,6 @@ const listlivreur = async (req, res) => {
 }
 
 const addimage = async (req, res) => {
-  // res.send({
-  //   file: req.file.filename,
-  //   path: req.path
-  // })
-  // const path = req.file.path;
   const findcategory = await Category.find()
   console.log(findcategory)
   const { name, description, price, category } = req.body;
@@ -170,22 +144,13 @@ const addimage = async (req, res) => {
     throw new Error("product is not added");
 
   }
-}
-// res.send({
-//   file: req.file.filename,
-//   path: req.path
-// })
-// const path = req.file.path;
-
-       
+}    
 
 // jai un probleme file systemenje les resoudrÃ©
 const deletproduct = async (req, res) => {
   const id = req.params.id;
   try {
     const result = await Meal.findById(id);
-    // removefile.removefile(result.images);
-    // const directoryPath = 'C:\Users\Youcode\Desktop\MARHABA-DELIVRY\backend\images\1671028061674.png';
     try {
       fs.unlinkSync(`C:/Users/Youcode/Desktop/MARHABA-DELIVRY/backend/images/${result.images[0]}`);
       console.log('deleted from fs file');
@@ -203,19 +168,13 @@ const deletproduct = async (req, res) => {
 
 const GetAllProduct = async (req, res) => {
   const allProduct = await Meal.find().populate({
-    //path smiyat l fild
     path : 'category',
-    //smiyat model li dayr m3ah foringkey
     model : Category
-  });
-  try {
+  })
     if (allProduct) {
       res.send(allProduct);
     }
     else throw new Error("no product found");
-  } catch (error) {
-    throw new Error(error);
-  }
 };
 
 
@@ -223,23 +182,12 @@ const statistique = async (req,res)=>{
   const user =await User.find().count()
   const meal =await Meal.find().count()
   const category =await Category.find().count()
-
-
-
-      // const result = db.User.aggregate([{$count:"_id"}])
   res.json({user,meal,category})
-
-
-
-
-
 }
 
 const updateproduct = async (req, res) => {
-  // const findcategory = await Category.findOne()
-
+  const findcategory = await Category.findOne()
   const { id } = req.params
-  console.log(req.params)
   const UpdatedProduct = {
     name: req.body.name,
     description: req.body.description,
@@ -248,15 +196,12 @@ const updateproduct = async (req, res) => {
     images: req.file.filename
 
   };
-  console.log(req.body.name)
 
   try {
     await Meal.findByIdAndUpdate(
       { _id: id },
       UpdatedProduct,
-
     );
-
     res.status(201).json({
       message: "Product updated successfully!",
     });
@@ -266,8 +211,6 @@ const updateproduct = async (req, res) => {
     });
   }
 }
-
-
 
 module.exports = {
   managerUser,

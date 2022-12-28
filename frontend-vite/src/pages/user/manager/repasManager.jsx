@@ -5,36 +5,28 @@ import { AiOutlineCloseCircle } from 'react-icons/ai'
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { ToastContainer, toast } from 'react-toastify';
-
 import axios from "axios";
-
 
 const baseURL = 'http://localhost:5500/api/user/manager'
 const baseURLLogout = 'http://localhost:5500/api/auth'
 const imagePath = 'http://localhost:5500/images'
 
-
 function repasManager() {
-
   const [showModal, setShowModal] = useState(false)
   const [repas, setrepas] = useState([])
   const [edite, setEdite] = useState(false)
   const [editRepas, setEditRepas] = useState({ name: '', description: '', img: '', price: '', category: '' })
   const [category, setcategory] = useState([])
-  // const [updateRepa, setUpdateRepa] = useState({})
-
-  
 
   const updateRepas = (e) => {
     const valeur = e.target.value
     setEditRepas({ ...editRepas, [e.target.name]: valeur })
   }
-  const [imgedit, setImgedit] = useState()
-
+  
+  const [imgedit, setImgedit] = useState()  
   
    const editmeal = async() =>{
     const dataedit = new FormData()
-
     dataedit.append('name', editRepas.name)
     dataedit.append('description', editRepas.description)
     dataedit.append('price', editRepas.price)
@@ -52,9 +44,7 @@ function repasManager() {
     })
 
    } 
-
-
-
+   
   const [data, setData] = useState()
 
   const handleChange = (e) => {
@@ -114,6 +104,7 @@ function repasManager() {
   }
 
 
+
   const deleted = async (id) => {
     await axios.delete(`${baseURL}/deleteProduct/${id}`)
       .then((e) => {
@@ -130,15 +121,8 @@ function repasManager() {
     affichcategory()
   }, [])
 
-  // function getCategory(category1) {
-  //   let a = category.filter(cat => cat._id == category1)
-  //   return a[0]?.name
-  // }
-
-
   return (
     <div>
-
       <div className={`${open ? 'ml-72' : 'ml-20'} duration-300 m-3`}>
         <button type="button" onClick={() => {setShowModal(true); setEdite(false)}} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
         {
@@ -157,9 +141,7 @@ function repasManager() {
                 <select id="underline_select"  class="block py-2 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                   <option selected>Choose a Category</option>
                   {category.map((cate) => (
-
                   <option value={cate._id}>{cate.name}</option>
-
                    ))}
                 </select>
               </div>
@@ -179,7 +161,6 @@ function repasManager() {
             : null
         }
       </div>
-
       <div class={`${open ? 'ml-72' : 'ml-20'}  duration-300 overflow-x-auto mt-6 relative shadow-md drop-shadow-2xl sm:rounded-lg`}>
         <table class="w-full text-sm text-left mb-5 text-gray-500  dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -294,8 +275,6 @@ function repasManager() {
       ) : null
       }
       <ToastContainer/>
-
-
     </div>
   )
 
