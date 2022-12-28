@@ -24,8 +24,10 @@ import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
 import 'react-toastify/dist/ReactToastify.css';
 import store from './store/store';
-
 // import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
+import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
+
+
 
 window.addEventListener("storage", () => {
   axios

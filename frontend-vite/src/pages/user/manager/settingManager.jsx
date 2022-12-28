@@ -4,6 +4,8 @@ import Button from "../../../components/Button";
 import axios from "axios";
 
 const baseURL = 'http://localhost:5500/api/user/manager'
+const imagePath = 'http://localhost:5500/images'
+
 
 
 function SettingManager() {
@@ -23,25 +25,38 @@ function SettingManager() {
   }, [])
 
   return (
-    <div>
-      <form className={`${open ? 'ml-72' : 'ml-20'} duration-300 p-4 pt-9`}>
-        <div class="relative z-0 mb-6 w-full group">
-          <Input type="text" name="first_name" id="first_name" value={setting.first_name} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="First Name" required />
-        </div>
-        <div class="relative z-0 mb-6 w-full group">
-          <Input type="text" name="last_name" id="last_name" value={setting.last_name} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Last Name" required />
-        </div>
-        <div class="relative z-0 mb-6 w-full group">
-          <Input type="email" name="email" id="email" value={setting.email} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Email" required />
-        </div>
-        <div class="relative z-0 mb-6 w-full group">
-          <Input type="text" name="phone" id="phone" value={setting.phone} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="phone" required />
-        </div>
-        <Button type="submit" class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Submit" />
-      </form>
 
 
+<section style={{fontFamily: 'Montserrat'}} className="flex font-medium items-center justify-center h-screen">
+  <section className="w-100 mx-auto rounded-2xl px-8 py-6 shadow-lg">
+    <div className="flex items-center justify-between">
+      <span className="text-black-400 text-sm text-bold">2d ago</span>
+      <span className="text-emerald-400">
+        <img src=""/>
+      </span>
     </div>
+    <div className="mt-6 w-fit mx-auto">
+      <img src={`${imagePath}/1671804990599.png`} className="rounded-full w-28 " alt="profile picture" srcSet />
+    </div>
+    <div className="mt-8 ">
+      <h2 className="text-green  font-bold "><span className=" text-black">First-name : </span>{setting.first_name}<br/> <span className="text-black">Last-name : </span> {setting.last_name}</h2>
+    </div>
+    <p className="font-semibold text-green">
+      <span className="text-black">email : </span>
+     {setting.email}
+    </p>
+    <p className="font-semibold text-green">
+      <span className="text-black">Phone : </span>
+       {setting.phone}
+    </p>
+ 
+    <div className="h-1 w-full bg-black mt-8 rounded-full">
+      <div className="h-1 rounded-full w-2/5 bg-yellow-500 " />
+    </div>
+   
+  </section>
+</section>
+
 
 
   )
