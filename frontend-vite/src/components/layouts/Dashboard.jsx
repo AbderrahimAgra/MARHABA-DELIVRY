@@ -9,6 +9,8 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import Button from '../Button';
 
 import Axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCart, toggleCard } from '../../store/slices/cart.sclice';
 
 const baseURL = 'http://localhost:5500/api/auth'
 
@@ -29,15 +31,16 @@ const Dashboard = () => {
   const [open, setOpen] = useState(true)
 
   const role = localStorage.getItem('role')
-
+  const cart = useSelector(selectCart)
+  const dispatch = useDispatch()
 
   const MenusClient = [
     { title: "Dashboad", icon: AiOutlineDashboard, route: '' },
-    { title: "Salade", icon: GiHotMeal, gap: true, route: '/' },
-    { title: "Pizza", icon: GiHotMeal, route: '/' },
-    { title: "Tacos", icon: GiHotMeal, route: '/' },
-    { title: "Sandwich", icon: GiHotMeal, route: '/' },
-    { title: "Desserts", icon: GiHotMeal, route: '/' },
+    { title: "Salade", icon: GiHotMeal, gap: true, route: '' },
+    { title: "Pizza", icon: GiHotMeal, route: '' },
+    { title: "Tacos", icon: GiHotMeal, route: '' },
+    { title: "Sandwich", icon: GiHotMeal, route: '' },
+    { title: "Desserts", icon: GiHotMeal, route: '' },
     { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
   ]
 
@@ -121,8 +124,9 @@ const Dashboard = () => {
               </a>
               <div class="flex items-center md:order-2">
                 {role === 'client' ?
-                  <div>
-                    <BsFillCartCheckFill className='mr-2' />
+                  <div className="flex align-center">
+                    <h1>{cart.length}</h1>
+                    <BsFillCartCheckFill className='mr-2' onClick={() => dispatch(toggleCard())}/>
                   </div>
                   : null
                 }
