@@ -25,10 +25,10 @@ const repasSchema= mongoose.Schema({
             trim: true
         },
       category: 
-        {
+        [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "category" 
-        }
+            ref: "category"
+        }]
       
 
 })

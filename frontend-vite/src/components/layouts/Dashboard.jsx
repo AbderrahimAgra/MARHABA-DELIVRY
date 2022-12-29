@@ -53,6 +53,11 @@ const Dashboard = () => {
     { title: "Clients", icon: FiUsers, route: 'clients' },
     { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
   ]
+  
+  const MenusLivreur = [
+    { title: "Dashboad", icon: AiOutlineDashboard, route: '' },
+    { title: "Setting", icon: AiFillSetting, gap: true, route: 'setting' },
+  ]
 
   return (
     <div>
@@ -93,7 +98,21 @@ const Dashboard = () => {
                   <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class={`${!open && 'hidden'} duration-200 text-lg text-white`} btn='Logout' />
                 </div>
               </ul>
-            ) : null}
+            ) : 
+            role === 'livreur' ? (
+              <ul className="pt-6">
+                {MenusLivreur.map((menu, index) => (
+                  <li key={index} className={`text-gray-300 text-sm flex w-11 items-center gap-x-4 cursor-pointer p-2 hover:bg-zinc-800 rounded-md ${menu.gap ? "mt-12" : " "}`}>
+                    <div className="text-white">{React.createElement(menu?.icon, { size: "25" })}</div>
+                    <Link to={menu.route}><span className={`${!open && 'hidden'} origin-left duration-200 text-lg text-white`}>{menu.title}</span></Link>
+                  </li>
+                ))}
+                <div className="flex items-center">
+                  <span className="text-white p-2 text-2xl mr-1"><AiOutlineLogout /></span><Button onclick={logout} class={`${!open && 'hidden'} duration-200 text-lg text-white`} btn='Logout' />
+                </div>
+              </ul>
+            ) : null
+            }
 
         </div>
 

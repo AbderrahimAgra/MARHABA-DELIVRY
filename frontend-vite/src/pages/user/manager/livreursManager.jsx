@@ -10,6 +10,28 @@ function livreursManager() {
 
   const [showModal, setShowModal] = useState(false)
   const [livreurs, setLivreurs] = useState([])
+  const [addlivreur, setAddLivreur] = useState()
+
+
+  const onChange = (e) => {
+    const valeur = e.target.value
+    setAddLivreur({ ...addlivreur, [e.target.name]: valeur })
+  }
+
+  function addLivreur(e) {
+
+    e.preventDefault()
+
+    axios.post(`${baseURL}/addLivreur`, addlivreur)
+      .then((response) => {
+        console.log(response)
+
+        window.location.reload(false)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   const fetchLivreurs = async () => {
     const dataLivreurs = await axios.get(`${baseURL}/listlivreur`)
@@ -19,17 +41,17 @@ function livreursManager() {
       console.log("error", err)
     }
   }
-  const bannlivreur = async(e) =>{
+  const bannlivreur = async (e) => {
     let id = e.target.value
-      await axios.put(`${baseURL}/updateuser/${id}`)
-    .then((res)=>{
-      console.log(res.data)
-          fetchLivreurs()
+    await axios.put(`${baseURL}/updateuser/${id}`)
+      .then((res) => {
+        console.log(res.data)
+        fetchLivreurs()
 
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
 
   }
@@ -71,10 +93,10 @@ function livreursManager() {
                     {livreur.email}
                   </td>
                   <td className="py-4 px-6 items-center">
-                <button className = { livreur.isBanned ? "px-4 py-1 btn bg-red-600 text-white rounded" :  "px-4 py-1 rounded bg-green text-white"} value={livreur._id} onClick={bannlivreur}>
-                  {(livreur.isBanned) ? "bann" : "banned"}
-                </button>
-                </td>
+                    <button className={livreur.isBanned ? "px-4 py-1 btn bg-red-600 text-white rounded" : "px-4 py-1 rounded bg-green text-white"} value={livreur._id} onClick={bannlivreur}>
+                      {(livreur.isBanned) ? "bann" : "banned"}
+                    </button>
+                  </td>
                 </tr>
               )
             })}
@@ -99,19 +121,22 @@ function livreursManager() {
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-                  <form className=" text-slate-500 text-lg leading-relaxed">
+                  <form onSubmit={addLivreur} className=" text-slate-500 text-lg leading-relaxed">
                     <div className="flex flex-col gap-6">
                       <div>
-                        <Input type="text" name="first_name" id="first_name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="First Name" />
+                        <Input type="text" name="first_name" onChange={onChange} id="first_name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="First Name" />
                       </div>
                       <div>
-                        <Input type="text" name="last_name" id="last_name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Last Name" />
+                        <Input type="text" name="last_name" onChange={onChange} id="last_name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Last Name" />
                       </div>
                       <div>
-                        <Input type="email" name="email" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" id="email" placeholder="Email" />
+                        <Input type="text" name="phone" onChange={onChange} id="phone" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Phone" />
                       </div>
                       <div>
-                        <Input type="password" name="password" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" id="password" placeholder="Password" />
+                        <Input type="email" name="email" onChange={onChange} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" id="email" placeholder="Email" />
+                      </div>
+                      <div>
+                        <Input type="password" name="password" onChange={onChange} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" id="password" placeholder="Password" />
                       </div>
                     </div>
                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

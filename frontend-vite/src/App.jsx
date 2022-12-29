@@ -1,10 +1,9 @@
-import React  from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { React } from 'react';
+import {BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import axios from 'axios'
 //make the store availible to alll component 
 import { Provider } from 'react-redux';
-// import ProtectedRoutes from './ProtectedRoutes';
 // Pages the Auth
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
@@ -22,6 +21,9 @@ import CategoryManager from './pages/user/manager/categoryManager'
 import LivreursManager from './pages/user/manager/LivreursManager'
 import ClientsManager from './pages/user/manager/clientsManager'
 import SettingManager from './pages/user/manager/settingManager'
+// Pages Livreur
+import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
+import SettingLivreur from './pages/user/livreur/settingLivreur'
 import 'react-toastify/dist/ReactToastify.css';
 import store from './store/store'
 
@@ -53,6 +55,11 @@ function App() {
             <Route path='' element={<DashbordClient />} />
             <Route path='setting' element={<SettingClient />} />
           </Route>
+          {/* { Livreur } */}
+        <Route path='/dashboard/livreur' element={<Dashboard />}>
+          <Route path='' element={<DashbordLivreur />} />
+          <Route path='setting' element={<SettingLivreur />} />
+        </Route>
           {/* { Manager } */}
           <Route path='/dashboard/manager' element={<Dashboards />}>
             <Route path='' element={<DashbordManager />} />
@@ -63,6 +70,11 @@ function App() {
             <Route path='clients' element={<ClientsManager />} />
             <Route path='setting' element={<SettingManager />} />
           </Route>
+      </Routes>
+{/* 
+      <Route path='/pageNotAccess' element={<PageNotAccess />} /> */}
+      {/* <Route path='*' element={<PageNotFound />} /> */}
+    </Router>
         </Routes>
       </BrowserRouter>
     </Provider>
