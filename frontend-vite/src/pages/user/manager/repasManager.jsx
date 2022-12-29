@@ -23,7 +23,7 @@ function repasManager() {
   const [category, setcategory] = useState([])
   // const [updateRepa, setUpdateRepa] = useState({})
 
-  
+
 
   const updateRepas = (e) => {
     const valeur = e.target.value
@@ -31,8 +31,8 @@ function repasManager() {
   }
   const [imgedit, setImgedit] = useState()
 
-  
-   const editmeal = async() =>{
+
+  const editmeal = async () => {
     const dataedit = new FormData()
 
     dataedit.append('name', editRepas.name)
@@ -40,36 +40,20 @@ function repasManager() {
     dataedit.append('price', editRepas.price)
     dataedit.append('category', editRepas.category)
     dataedit.append('images', imgedit)
-    await axios.put(`${baseURL}/updateproduct/${editRepas._id}`,dataedit)
-    .then((res) =>{
-      console.log(res.data)
-      affichagrepas()
-      affichcategory()
-      toast.success(res.data)
-    }) 
-    .catch ((error)=>{
-      toast.error(error.response.data);
-    })
+    await axios.put(`${baseURL}/updateproduct/${editRepas._id}`, dataedit)
+      .then((res) => {
+        console.log(res.data)
+        affichagrepas()
+        affichcategory()
+        toast.success(res.data)
+        setEdite(false)
+      })
+      .catch((error) => {
+        toast.error(error.response.data);
+      })
 
-   } 
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // const onSubmit = () => {
   const edited = async (id) => {
     await axios.put(`${baseURL}/updateproduct/${id}`)
       .then(res => {
@@ -125,13 +109,12 @@ function repasManager() {
       console.log("error", err)
     }
   }
+
   const affichcategory = async () => {
     const datarepas = await axios.get(`${baseURL}/findcategory`)
 
-
     if (datarepas) {
       setcategory(datarepas.data)
-      // console.log(datarepas.data)
     } else {
       console.log("error", err)
     }
@@ -160,11 +143,12 @@ function repasManager() {
   // }
 
 
+    {console.log(repas)}
   return (
     <div>
 
       <div className={`${open ? 'ml-72' : 'ml-20'} duration-300 m-3`}>
-        <button type="button" onClick={() => {setShowModal(true); setEdite(false)}} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
+        <button type="button" onClick={() => { setShowModal(true); setEdite(false) }} className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Ajouter Repas</button>
         {
           edite ?
             <form className={`duration-300 p-4 pt-9`}>
@@ -178,13 +162,13 @@ function repasManager() {
                 <Input type="text" name="price" id="price" value={editRepas.price} onChange={updateRepas} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Image" required />
               </div>
               <div className="mb-2">
-                <select id="underline_select"  class="block py-2 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                <select id="underline_select" class="block py-2 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                   <option selected>Choose a Category</option>
                   {category.map((cate) => (
 
-                  <option value={cate._id}>{cate.name}</option>
+                    <option value={cate._id}>{cate.name}</option>
 
-                   ))}
+                  ))}
                 </select>
               </div>
               <div class="flex items-center justify-center w-80">
@@ -198,7 +182,7 @@ function repasManager() {
                 </label>
               </div>
               <Button type="submit" onclick={() => { setEdite(false) }} class="text-white bg-black hover:bg-neutral-800 mr-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Cancel" />
-              <Button type="button" onclick={ editmeal} class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Update" />
+              <Button type="button" onclick={editmeal} class="text-white bg-black hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-3 px-9 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" btn="Update" />
             </form>
             : null
         }
@@ -217,30 +201,33 @@ function repasManager() {
             </tr>
           </thead>
           <tbody>
-            {repas.map((reppa, index) => (
-              <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {reppa.name}
-                </th>
-                <td class="py-4 px-6">
-                  {reppa.description}
-                </td>
-                <td class="py-4 px-6">
-                  <img src={`${imagePath}/${reppa.images}`} width="50px" alt="" />
-                </td>
-                <td class="py-4 px-6">
-                  {/* {getCategory(reppa.category)} */}
-                  {reppa.category.name}
-                </td>
-                <td class="py-4 px-6">
-                  {reppa.price} prix
-                </td>
-                <td class="py-4 px-6 flex text-right">
-                  <button className="text-black text-xl mr-3" onClick={() => {setEdite(true); setEditRepas(reppa)}}><FiEdit /></button>
-                  <button type='button' onClick={(e) => { e.preventDefault(); deleted(reppa._id) }} className="text-black text-2xl"><MdDeleteSweep /></button>
-                </td>
-              </tr>
-            ))}
+            {
+              repas.map((reppa, index) => {
+                return (
+                  <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {reppa.name}
+                    </th>
+                    <td class="py-4 px-6">
+                      {reppa.description}
+                    </td>
+                    <td class="py-4 px-6">
+                      <img src={`${imagePath}/${reppa.images}`} width="50px" alt="" />
+                    </td>
+                    <td class="py-4 px-6 text-black">
+                      {reppa.category[0].name}
+                    </td>
+                    <td class="py-4 px-6">
+                      {reppa.price} <span>DH</span>
+                    </td>
+                    <td class="py-4 px-6 flex text-right">
+                      <button className="text-black text-xl mr-3" onClick={() => { setEdite(true); setEditRepas(reppa) }}><FiEdit /></button>
+                      <button type='button' onClick={(e) => { e.preventDefault(); deleted(reppa._id) }} className="text-black text-2xl"><MdDeleteSweep /></button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
@@ -266,7 +253,7 @@ function repasManager() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form onSubmit={addMeal}className="my-4 text-slate-500 text-lg leading-relaxed" encType='multipart/form-data'>
+                  <form onSubmit={addMeal} className="my-4 text-slate-500 text-lg leading-relaxed" encType='multipart/form-data'>
                     <div className="flex flex-col">
                       <div className="mb-2">
                         <Input type="text" name="name" id="name" onChange={handleChange} class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Repas" required />
@@ -279,17 +266,17 @@ function repasManager() {
                       </div>
                       <div className="mb-2">
                         <select id="underline_select" onChange={handleChange} name="category" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                          
+
 
                           <option selected>Choose a Category</option>
 
                           {category.map((cate) => (
 
                             <option value={cate._id}>{cate.name}</option>
-                          
+
                           ))}
                         </select>
-                        
+
                       </div>
                       <div className="mb-2">
                         <div class="flex items-center justify-center w-72">
@@ -305,7 +292,7 @@ function repasManager() {
                       </div>
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => setShowModal(false)} btn='Close' />
+                      <Button type='button' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-2 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' onclick={() => (setShowModal(false))} btn='Close' />
                       <Button type='submit' class='text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg w-full text-sm px-1.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800' btn='Create Repas' />
                     </div>
                   </form>
@@ -317,7 +304,7 @@ function repasManager() {
         </>
       ) : null
       }
-      <ToastContainer/>
+      <ToastContainer />
 
 
     </div>

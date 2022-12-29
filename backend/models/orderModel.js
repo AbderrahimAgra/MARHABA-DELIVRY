@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const orderSchema = mongoose.Schema({
 
   client: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   },
   meals: [
     {
@@ -12,24 +12,23 @@ const orderSchema = mongoose.Schema({
       ref: "meals"
     }
   ],
-  livereur: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+  livereur: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  address: {
+    type: String,
+    required: true,
+    trim: true
   },
-  address: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Address"
-    }
-  ],
   totalPrice: {
     type: Number,
     required: true,
     trim: true
   },
   status: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Status"
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Status"
   },
   date: {
     type: Date,

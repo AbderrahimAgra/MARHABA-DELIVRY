@@ -11,8 +11,14 @@ const {
   addimage,
   deletproduct,
   GetAllProduct,
-  updateproduct
+  updateproduct,
 
+  addLivreur,
+  addCommand,
+  getCommand,
+  getStatus,
+  updateStatusCommand,
+  updateLivreurCommand,
 } = require('../../controllers/userController/managerController')
 
 // Error Handler
@@ -34,7 +40,16 @@ router.get('/manager/listlivreur', tryCatch(listlivreur))
 router.post('/manager/implodProduct',upload.single('images'), tryCatch(addimage))
 router.delete('/manager/deleteProduct/:id', tryCatch(deletproduct))
 router.get('/manager/GetAllProduct', tryCatch(GetAllProduct))
-router.put('/manager/updateproduct/:id',upload.single('images'), tryCatch(updateproduct))
+router.put('/manager/updateproduct/:id', upload.single('images'), tryCatch(updateproduct))
+// Ajouter un livreur
+router.post('/manager/addLivreur', tryCatch(addLivreur))
+// Command 
+router.post('/manager/addCommand', tryCatch(addCommand))
+router.get('/manager/commands', tryCatch(getCommand))
+// Get Status
+router.get('/manager/getStatus', tryCatch(getStatus))
+router.put('/manager/update-Status-Command/:id', tryCatch(updateStatusCommand))
+router.put('/manager/update-Livreur-Command/:id', tryCatch(updateLivreurCommand))
 
 
 

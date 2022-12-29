@@ -37,7 +37,6 @@ const editform = async() =>{
 }
 
  const handelName = (e) =>{
-
     setName(e.target.value)
     console.log(name)
   }
@@ -142,7 +141,7 @@ const editform = async() =>{
                   <form className="my-4 text-slate-500 text-lg leading-relaxed">
                     <div className="flex flex-col">
                       <div className="mb-2">
-                        <Input type="text" value={name} onChange={handeName} name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Category" required />
+                        <Input type="text" value={name} onChange={handelName} name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-black peer" placeholder="Name Category" required />
                       </div>
                     </div>
                     <div className="flex justify-center p-6 border-t border-solid border-slate-200 rounded-b">
