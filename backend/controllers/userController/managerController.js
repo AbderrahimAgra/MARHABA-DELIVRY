@@ -12,6 +12,7 @@ const upload = require("../../outils/imageUmploder");
 const { role, status, address } = require('../../models')
 const removefile = require('../../outils/removeimage')
 const fs = require('fs')
+const { stat } = require('fs/promises')
 
 const addCommand = async (req, res) => {
   const { address, totalPrice } = req.body
@@ -238,7 +239,7 @@ const addimage = async (req, res) => {
 
   }
 
-}    
+}   
 
 // jai un probleme file systemenje les resoudrÃ©
 const deletproduct = async (req, res) => {
@@ -274,8 +275,9 @@ const GetAllProduct = async (req, res) => {
 const statistique = async (req,res)=>{
   const user =await User.find().count()
   const meal =await Meal.find().count()
+  const orders = await Orders.find().count() 
   const category =await Category.find().count()
-  res.json({user,meal,category})
+  res.send({user,meal,category, orders})
 }
 
 const updateproduct = async (req, res) => {

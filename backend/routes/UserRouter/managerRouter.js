@@ -41,7 +41,6 @@ router.get('/manager/listlivreur', tryCatch(listlivreur))
 router.post('/manager/implodProduct',upload.single('images'), tryCatch(addimage))
 router.delete('/manager/deleteProduct/:id', tryCatch(deletproduct))
 router.get('/manager/GetAllProduct', tryCatch(GetAllProduct))
-
 router.put('/manager/updateproduct/:id', upload.single('images'), tryCatch(updateproduct))
 // Ajouter un livreur
 router.post('/manager/addLivreur', tryCatch(addLivreur))
@@ -52,11 +51,9 @@ router.get('/manager/commands', tryCatch(getCommand))
 router.get('/manager/getStatus', tryCatch(getStatus))
 router.put('/manager/update-Status-Command/:id', tryCatch(updateStatusCommand))
 router.put('/manager/update-Livreur-Command/:id', tryCatch(updateLivreurCommand))
-
 router.put('/manager/updateproduct/:id',upload.single('images'), tryCatch(updateproduct))
 //statistique
 router.get('/manager/statistique', tryCatch(statistique))
-
 
 
 

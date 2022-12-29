@@ -36,7 +36,7 @@ const editform = async() =>{
   })
 }
 
-  const handelName = (e) =>{
+ const handelName = (e) =>{
     setName(e.target.value)
     console.log(name)
   }

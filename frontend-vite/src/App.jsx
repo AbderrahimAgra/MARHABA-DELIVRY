@@ -1,5 +1,5 @@
 import { React } from 'react';
-import {BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import axios from 'axios'
 //make the store availible to alll component 
@@ -10,7 +10,7 @@ import Signup from './pages/auth/Signup'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import FormForgotPassword from './pages/auth/FormForgotPassword'
 // Pages Client
-import Dashboards from './components/layouts/Dashboard';
+import Dashboard from './components/layouts/Dashboard';
 import DashbordClient from './pages/user/client/dashboardClient'
 import SettingClient from './pages/user/client/settingClient'
 // Pages Manager
@@ -42,7 +42,7 @@ window.addEventListener("storage", () => {
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <Router>
         <Routes>
           {/* { Auth} */}
           <Route path="/" element={<Login />} />
@@ -51,17 +51,17 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
           {/* { Client } */}
-          <Route path='/dashboard/client' element={<Dashboards />}>
+          <Route path='/dashboard/client' element={<Dashboard />}>
             <Route path='' element={<DashbordClient />} />
             <Route path='setting' element={<SettingClient />} />
           </Route>
           {/* { Livreur } */}
-        <Route path='/dashboard/livreur' element={<Dashboard />}>
-          <Route path='' element={<DashbordLivreur />} />
-          <Route path='setting' element={<SettingLivreur />} />
-        </Route>
+          <Route path='/dashboard/livreur' element={<Dashboard />}>
+            <Route path='' element={<DashbordLivreur />} />
+            <Route path='setting' element={<SettingLivreur />} />
+          </Route>
           {/* { Manager } */}
-          <Route path='/dashboard/manager' element={<Dashboards />}>
+          <Route path='/dashboard/manager' element={<Dashboard />}>
             <Route path='' element={<DashbordManager />} />
             <Route path='repas' element={<RepasManager />} />
             <Route path='category' element={<CategoryManager />} />
@@ -70,13 +70,8 @@ function App() {
             <Route path='clients' element={<ClientsManager />} />
             <Route path='setting' element={<SettingManager />} />
           </Route>
-      </Routes>
-{/* 
-      <Route path='/pageNotAccess' element={<PageNotAccess />} /> */}
-      {/* <Route path='*' element={<PageNotFound />} /> */}
-    </Router>
         </Routes>
-      </BrowserRouter>
+      </Router>
     </Provider>
   );
 }
