@@ -19,6 +19,7 @@ const {
   getStatus,
   updateStatusCommand,
   updateLivreurCommand,
+  statistique
 } = require('../../controllers/userController/managerController')
 
 // Error Handler
@@ -50,6 +51,9 @@ router.get('/manager/commands', tryCatch(getCommand))
 router.get('/manager/getStatus', tryCatch(getStatus))
 router.put('/manager/update-Status-Command/:id', tryCatch(updateStatusCommand))
 router.put('/manager/update-Livreur-Command/:id', tryCatch(updateLivreurCommand))
+router.put('/manager/updateproduct/:id',upload.single('images'), tryCatch(updateproduct))
+//statistique
+router.get('/manager/statistique', tryCatch(statistique))
 
 
 

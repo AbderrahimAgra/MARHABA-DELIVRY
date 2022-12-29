@@ -2,16 +2,13 @@ import { React, useState, useEffect } from "react";
 import Input from "../../../components/Input";
 import axios from "axios";
 
-
-const baseURL = 'http://localhost:5500/api/user/manager'
-
-function ClientsManager() {
-
+   const baseURL = 'http://localhost:5500/api/user/manager'
+   function ClientsManager() {
+   
   const [clients, setClients] = useState([])
-
+  
   const affichageclient = async () => {
     const dataclient = await axios.get(`${baseURL}/listclient`)
-
     if (dataclient) {
       setClients(dataclient.data)
       console.log(dataclient.data)
@@ -22,7 +19,6 @@ function ClientsManager() {
 
   const bannclient = async (e) => {
     let id= e.target.value
-
     await axios.put(`${baseURL}/updateuser/${id}`)
     .then((res)=>{
       console.log(res.data)
@@ -67,11 +63,9 @@ function ClientsManager() {
                     {client.email}
                   </td>
                   <td className="py-4 px-6 items-center">
-
                     <button className={client.isBanned ? "px-4 py-1 btn bg-red-600 text-white rounded" :  "px-4 py-1 rounded bg-green text-white"} onClick={bannclient} value={client._id}>
                       {(client.isBanned )? " banne " : "banned " }
                     </button>
-
                   </td>
                 </tr>
               )
@@ -79,7 +73,6 @@ function ClientsManager() {
           </tbody>
         </table>
       </div>
-
     </div>
   )
 }

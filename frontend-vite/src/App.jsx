@@ -1,8 +1,9 @@
 import { React } from 'react';
-import {BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import axios from 'axios'
-// Protected Router
+//make the store availible to alll component 
+import { Provider } from 'react-redux';
 // Pages the Auth
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
@@ -24,9 +25,7 @@ import SettingManager from './pages/user/manager/settingManager'
 import DashbordLivreur from './pages/user/livreur/dashboardLivreur'
 import SettingLivreur from './pages/user/livreur/settingLivreur'
 import 'react-toastify/dist/ReactToastify.css';
-// Page Not Found
-// import PageNotFound from './pages/auth/PageNotFound'
-// // import PageNotAccess from './pages/auth/PageNotAccess';
+import store from './store/store'
 
 window.addEventListener("storage", () => {
   axios
@@ -42,25 +41,26 @@ window.addEventListener("storage", () => {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* { Auth} */}
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
-        {/* { Livreur } */}
-        <Route path='/dashboard/livreur' element={<Dashboard />}>
-          <Route path='' element={<DashbordLivreur />} />
-          <Route path='setting' element={<SettingLivreur />} />
-        </Route>
-        {/* { Client } */}
-        <Route path='/dashboard/client' element={<Dashboard />}>
-          <Route path='' element={<DashbordClient />} />
-          <Route path='setting' element={<SettingClient />} />
-        </Route>
-        {/* { Manager } */}
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          {/* { Auth} */}
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/form-forgot-password/' element={<FormForgotPassword />} />
+          {/* { Client } */}
+          <Route path='/dashboard/client' element={<Dashboard />}>
+            <Route path='' element={<DashbordClient />} />
+            <Route path='setting' element={<SettingClient />} />
+          </Route>
+          {/* { Livreur } */}
+          <Route path='/dashboard/livreur' element={<Dashboard />}>
+            <Route path='' element={<DashbordLivreur />} />
+            <Route path='setting' element={<SettingLivreur />} />
+          </Route>
+          {/* { Manager } */}
           <Route path='/dashboard/manager' element={<Dashboard />}>
             <Route path='' element={<DashbordManager />} />
             <Route path='repas' element={<RepasManager />} />
@@ -70,11 +70,9 @@ function App() {
             <Route path='clients' element={<ClientsManager />} />
             <Route path='setting' element={<SettingManager />} />
           </Route>
-      </Routes>
-{/* 
-      <Route path='/pageNotAccess' element={<PageNotAccess />} /> */}
-      {/* <Route path='*' element={<PageNotFound />} /> */}
-    </Router>
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 
