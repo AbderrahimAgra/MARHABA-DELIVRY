@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-do
 import './App.css';
 import axios from 'axios'
 // Protected Router
-import PrivateManager from './helpers/PrivateManager'
 // Pages the Auth
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
@@ -62,8 +61,6 @@ function App() {
           <Route path='setting' element={<SettingClient />} />
         </Route>
         {/* { Manager } */}
-        <Route element={<PrivateAdminRoute />}>
-
           <Route path='/dashboard/manager' element={<Dashboard />}>
             <Route path='' element={<DashbordManager />} />
             <Route path='repas' element={<RepasManager />} />
@@ -73,7 +70,6 @@ function App() {
             <Route path='clients' element={<ClientsManager />} />
             <Route path='setting' element={<SettingManager />} />
           </Route>
-        </Route>
       </Routes>
 {/* 
       <Route path='/pageNotAccess' element={<PageNotAccess />} /> */}
